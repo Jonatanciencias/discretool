@@ -1,0 +1,24 @@
+-------------------------------------------------------------
+       ¡Bienvenido a DiscreTool!
+       Tu asistente para matemáticas discretas.
+-------------------------------------------------------------
+
+Uso:
+    python discretool.py [opciones]
+
+Opciones:
+    -h, --help        Muestra esta pantalla de ayuda.
+    -c, --congruente  Calcula un número b congruente con a dado un mod.
+    -g, --grafos      Herramientas para teoría de grafos.
+    -s, --sets        Herramientas para operaciones de conjuntos.
+    -m, --matrices    Calcula operaciones y propiedades de matrices discretas.
+
+Ejemplos de uso:
+    python discretool.py --congruente
+    python discretool.py --grafos
+    python discretool.py --sets
+    python discretool.py --matrices
+
+-------------------------------------------------------------
+¡Agiliza tus cálculos y explora el poder de las matemáticas discretas con DiscreTool!
+-------------------------------------------------------------
