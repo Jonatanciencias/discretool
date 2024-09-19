@@ -1,3 +1,4 @@
+# src/logic/__init__.py
 from .logic_solver import (
     parse_expression,
     evaluate_expression,

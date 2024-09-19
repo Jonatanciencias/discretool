@@ -1,3 +1,5 @@
+# src/logic/derivation.py
+
 from sympy import Implies, Or, Not
 from .inference import modus_ponens, modus_tollens, disjunctive_syllogism, hypothetical_syllogism, double_negation
 

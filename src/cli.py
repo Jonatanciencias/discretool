@@ -1,13 +1,9 @@
-# src/cli.py
+#/src/cli.py
 
 import click
 import sympy
-from sympy import (
-    symbols, 
-    Implies, 
-    Not
-    )
-
+from sympy import symbols, Implies, Not
+from sympy.parsing.sympy_parser import parse_expr
 
 from common_tools import (
     is_congruent,
@@ -17,7 +13,6 @@ from common_tools import (
     lcm,
     generate_primes
 )
-
 from logic import (
     parse_expression,
     evaluate_expression,
@@ -29,18 +24,25 @@ from logic import (
     is_satisfiable
 )
 
+from utils import (
+    replace_implication
+)
+
 
 @click.group()
 def cli():
     """Aplicación para Matemáticas Discretas 2"""
+    pass
 
 @cli.group()
 def logic():
     """Operaciones de Lógica Proposicional"""
+    pass
 
 @cli.group(name="common_tools")
 def common_tools():
     """Herramientas comunes de Matemáticas Discretas"""
+    pass
 
 # COMMON COMMANDS
 @common_tools.command()
@@ -108,16 +110,23 @@ def solve_diophantine_command(a, b, c):
               help="Asignaciones de variables, e.g., -a A True -a B False")
 def evaluate(expression, assign):
     """Evalúa una expresión lógica con asignaciones dadas."""
-    expr = parse_expression(expression)
-    assignments = {var: val for var, val in assign}
-    result = evaluate_expression(expr, assignments)
-    click.echo(f"Resultado: {result}")
+    # Reemplazar '->' por '>>'
+    expression = replace_implication(expression)
+    try:
+        expr = parse_expr(expression)  # Usar parse_expr para entender '>>' como Implies
+        assignments = {var: val for var, val in assign}
+        result = evaluate_expression(expr, assignments)
+        click.echo(f"Resultado: {result}")
+    except Exception as e:
+        click.echo(f"Error al procesar la expresión: {e}")
 
 
 @logic.command()
 @click.argument('expression')
 def table(expression):
     """Genera la tabla de verdad para una expresión lógica."""
+    # Reemplazar '->' por 'Implies'
+    expression = replace_implication(expression)
     expr = parse_expression(expression)
     headers, table_data = truth_table(expr)
 
@@ -137,6 +146,8 @@ def table(expression):
               help="Forma normal a simplificar (dnf o cnf)")
 def simplify(expression, form):
     """Simplifica una expresión lógica a DNF o CNF."""
+    # Reemplazar '->' por 'Implies'
+    expression = replace_implication(expression)
     expr = parse_expression(expression)
     simplified = simplify_expression(expr, form=form)
     click.echo(f"Expresión simplificada ({form.upper()}): {simplified}")
@@ -156,6 +167,9 @@ def classify(expression):
 @click.argument('expression2')
 def equivalent(expression1, expression2):
     """Verifica si dos expresiones lógicas son equivalentes."""
+    # Reemplazar '->' por 'Implies'
+    expression1 = replace_implication(expression1)
+    expression2 = replace_implication(expression2)
     expr1 = parse_expression(expression1)
     expr2 = parse_expression(expression2)
     equivalence = are_equivalent(expr1, expr2)
@@ -163,6 +177,7 @@ def equivalent(expression1, expression2):
         click.echo("Las expresiones son equivalentes.")
     else:
         click.echo("Las expresiones NO son equivalentes.")
+
 
 @logic.command()
 @click.argument('expression')
@@ -173,33 +188,35 @@ def sat(expression):
     Ejemplo:
         python cli.py logic sat "(A | ~B) & (B | ~C)"
     """
-    # Convertir la entrada a expresión simbólica
-    A, B, C = symbols('A B C')
     expr = parse_expression(expression)
 
     # Verificar satisfacibilidad
     result = is_satisfiable(expr)
     click.echo(f"La expresión {expression} es {result}")
 
-@cli.command()
+
+@logic.command()
 @click.argument('expressions', nargs=-1)
 def derive(expressions):
     """
     Aplica deducción natural paso a paso para las expresiones dadas.
     
     Ejemplo:
-        python cli.py derive "(A -> B)" "A"
+        python cli.py logic derive "(A -> B)" "A"
     """
-    # Convertir las entradas a expresiones simbólicas
-    A, B = symbols('A B')
-    
     steps = []
     for expr in expressions:
-        steps.append(sympy.sympify(expr))  # Convierte la cadena en una expresión simbólica de manera segura
+        # Reemplazar '->' por 'Implies' para manejar implicaciones
+        expr = expr.replace("->", "Implies")
+        try:
+            steps.append(sympy.sympify(expr))  # Convierte la cadena en una expresión simbólica de manera segura
+        except sympy.SympifyError:
+            click.echo(f"Error al procesar la expresión: {expr}")
+            return
     
     # Aplica las reglas de inferencia paso a paso
     deductions = apply_inference_rules(steps)
-    
+
     # Mostrar los pasos deducidos
     for deduction in deductions:
         click.echo(deduction)

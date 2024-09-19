@@ -1,3 +1,5 @@
+# src/logic/sat_solver.py
+
 from sympy import symbols, And, Or, Not
 from sympy.logic.boolalg import to_cnf
 from pysat.solvers import Glucose3
