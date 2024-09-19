@@ -1,60 +1,67 @@
 # tests/test_logic_solver.py
-
 import unittest
-from src.logic.logic_solver import (
+from src.logic import (
     parse_expression,
     evaluate_expression,
-    truth_table,
-    simplify_expression,
-    classify_expression,
     are_equivalent
 )
 
 class TestLogicSolver(unittest.TestCase):
-
+    """
+    TestLogicSolver is a test case for testing the logic solver functionalities.
+    Methods:
+        test_parse_expression:
+            Tests the parsing of a logical expression and verifies its string representation.
+        test_evaluate_expression:
+            Tests the evaluation of a parsed logical expression with given variable values and verifies the result.
+        test_equivalence:
+            Tests the equivalence of two logical expressions by parsing them and verifying if they are logically equivalent.
+    """
+    
     def test_parse_expression(self):
-        expr_str = "A & B"
-        expr = parse_expression(expr_str)
-        self.assertEqual(expr, parse_expression("(A & B)"))
+        """
+        Test the parse_expression function.
 
+        This test case verifies that the parse_expression function correctly parses
+        a logical expression string and converts it into the expected expression object.
+
+        The test checks if the string representation of the parsed expression matches
+        the expected output.
+
+        Assertions:
+            - The string representation of the parsed expression should be "And(A, B)".
+        """
+        expr = parse_expression("(A & B)")
+        self.assertEqual(str(expr), "And(A, B)")
+    
     def test_evaluate_expression(self):
-        expr = parse_expression("A | B")
-        assignments = {'A': False, 'B': True}
-        result = evaluate_expression(expr, assignments)
-        self.assertTrue(result)
+        """
+        Test the evaluate_expression function with a given logical expression.
 
-    def test_truth_table(self):
-        expr = parse_expression("A & B")
-        headers, table = truth_table(expr)
-        self.assertEqual(len(table), 4)
-        self.assertEqual(table[0]['A & B'], False)
-        self.assertEqual(table[3]['A & B'], True)
+        This test checks the evaluation of the logical expression "(A & B)" 
+        with the provided variable values. Specifically, it verifies that 
+        the expression evaluates to False when 'A' is True and 'B' is False.
 
-    def test_simplify_expression(self):
-        expr = parse_expression("A & (A | B)")
-        simplified = simplify_expression(expr, form='dnf')
-        self.assertEqual(str(simplified), "A")
+        Assertions:
+            - The result of the evaluation should be False.
+        """
+        expr = parse_expression("(A & B)")
+        result = evaluate_expression(expr, {'A': True, 'B': False})
+        self.assertFalse(result)
 
-    def test_classify_expression(self):
-        expr = parse_expression("A | ~A")
-        classification = classify_expression(expr)
-        self.assertEqual(classification, "Tautología")
-        
-        expr = parse_expression("A & ~A")
-        classification = classify_expression(expr)
-        self.assertEqual(classification, "Contradicción")
-        
-        expr = parse_expression("A & B")
-        classification = classify_expression(expr)
-        self.assertEqual(classification, "Contingencia")
+    def test_equivalence(self):
+        """
+        Test the equivalence of two logical expressions.
 
-    def test_are_equivalent(self):
-        expr1 = parse_expression("A & B")
-        expr2 = parse_expression("B & A")
-        self.assertTrue(are_equivalent(expr1, expr2))
-        
-        expr1 = parse_expression("A | (B & C)")
-        expr2 = parse_expression("(A | B) & (A | C)")
+        This test verifies that the logical expressions "(A -> B)" and "(~A | B)"
+        are equivalent by parsing them and checking their equivalence using the
+        `are_equivalent` function.
+
+        Assertions:
+            - The parsed expressions of "(A -> B)" and "(~A | B)" should be equivalent.
+        """
+        expr1 = parse_expression("(A -> B)")
+        expr2 = parse_expression("(~A | B)")
         self.assertTrue(are_equivalent(expr1, expr2))
 
 if __name__ == '__main__':

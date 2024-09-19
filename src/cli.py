@@ -5,7 +5,7 @@ import sympy
 from sympy import symbols, Implies, Not
 from sympy.parsing.sympy_parser import parse_expr
 
-from .common_tools import (
+from common_tools import (
     is_congruent,
     solve_linear_congruence,
     solve_diophantine,
@@ -13,7 +13,7 @@ from .common_tools import (
     lcm,
     generate_primes
 )
-from .logic import (
+from logic import (
     parse_expression,
     evaluate_expression,
     truth_table,
@@ -24,11 +24,10 @@ from .logic import (
     is_satisfiable
 )
 
-from .utils import (
+from utils import (
     replace_implication,
     print_welcome_message
 )
-
 
 @click.group(invoke_without_command=True)
 @click.pass_context
@@ -40,12 +39,11 @@ def cli(ctx):
 @cli.group()
 def logic():
     """Operaciones de Lógica Proposicional"""
-    pass
 
 @cli.group(name="common_tools")
 def common_tools():
     """Herramientas comunes de Matemáticas Discretas"""
-    pass
+
 
 # COMMON COMMANDS
 @common_tools.command()
@@ -120,7 +118,7 @@ def evaluate(expression, assign):
         assignments = {var: val for var, val in assign}
         result = evaluate_expression(expr, assignments)
         click.echo(f"Resultado: {result}")
-    except Exception as e:
+    except (sympy.SympifyError, ValueError) as e:
         click.echo(f"Error al procesar la expresión: {e}")
 
 

@@ -71,3 +71,38 @@ Si quieres contribuir al desarrollo de **DiscreTool**, sigue estos pasos:
 
 Este proyecto está licenciado bajo la licencia MIT - mira el archivo LICENSE para más detalles.
 
+
+```
+DiscreTool
+├─ .git
+├─ .gitignore
+├─ README.md
+├─ requirements.txt
+├─ setup.py
+├─ src
+│  ├─ cli.py
+│  ├─ combinatorics
+│  │  └─ combinatorics_solver.py
+│  ├─ common_tools
+│  │  ├─ congruences.py
+│  │  ├─ gcd_lcm.py
+│  │  ├─ prime_tools.py
+│  │  └─ __init__.py
+│  ├─ graphs
+│  │  └─ graph_algorithms.py
+│  ├─ logic
+│  │  ├─ derivation.py
+│  │  ├─ inference.py
+│  │  ├─ logic_solver.py
+│  │  ├─ sat_solver.py
+│  │  └─ __init__.py
+│  ├─ utils
+│  │  ├─ helper.py
+│  │  ├─ replace_implication.py
+│  │  └─ __init__.py
+│  └─ __init__.py
+├─ tasks.json
+└─ tests
+   └─ test_logic_solver.py
+
+```
