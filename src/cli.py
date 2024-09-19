@@ -32,7 +32,7 @@ def logic():
     pass
 
 
-@cli.group()
+@cli.group(name="common_tools")
 def common_tools():
     """Herramientas comunes de Matemáticas Discretas"""
     pass
