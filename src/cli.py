@@ -1,6 +1,9 @@
 # src/cli.py
 
 import click
+import sympy
+from sympy import symbols, Implies, Not
+
 from common_tools import (
     is_congruent,
     solve_linear_congruence,
@@ -16,27 +19,22 @@ from logic import (
     truth_table,
     simplify_expression,
     classify_expression,
-    are_equivalent
+    are_equivalent,
+    apply_inference_rules,
 )
 
 
 @click.group()
 def cli():
     """Aplicación para Matemáticas Discretas 2"""
-    pass
-
 
 @cli.group()
 def logic():
     """Operaciones de Lógica Proposicional"""
-    pass
-
 
 @cli.group(name="common_tools")
 def common_tools():
     """Herramientas comunes de Matemáticas Discretas"""
-    pass
-
 
 # COMMON COMMANDS
 @common_tools.command()
@@ -159,6 +157,29 @@ def equivalent(expression1, expression2):
         click.echo("Las expresiones son equivalentes.")
     else:
         click.echo("Las expresiones NO son equivalentes.")
+
+@cli.command()
+@click.argument('expressions', nargs=-1)
+def derive(expressions):
+    """
+    Aplica deducción natural paso a paso para las expresiones dadas.
+    
+    Ejemplo:
+        python cli.py derive "(A -> B)" "A"
+    """
+    # Convertir las entradas a expresiones simbólicas
+    A, B = symbols('A B')
+    
+    steps = []
+    for expr in expressions:
+        steps.append(sympy.sympify(expr))  # Convierte la cadena en una expresión simbólica de manera segura
+    
+    # Aplica las reglas de inferencia paso a paso
+    deductions = apply_inference_rules(steps)
+    
+    # Mostrar los pasos deducidos
+    for deduction in deductions:
+        click.echo(deduction)
 
 
 if __name__ == '__main__':
