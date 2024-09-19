@@ -25,14 +25,17 @@ from logic import (
 )
 
 from utils import (
-    replace_implication
+    replace_implication,
+    print_welcome_message
 )
 
 
-@click.group()
-def cli():
+@click.group(invoke_without_command=True)
+@click.pass_context
+def cli(ctx):
     """Aplicación para Matemáticas Discretas 2"""
-    pass
+    if ctx.invoked_subcommand is None:
+        print_welcome_message()  # Mostrar el mensaje de bienvenida
 
 @cli.group()
 def logic():
