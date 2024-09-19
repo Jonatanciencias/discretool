@@ -1,6 +1,0 @@
-click==8.1.7
-colorama==0.4.6
-mpmath==1.3.0
-networkx==3.3
-numpy==2.1.1
-sympy==1.13.3
