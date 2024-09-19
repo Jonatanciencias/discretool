@@ -1,5 +1,3 @@
-# src/logic/__init__.py
-
 from .logic_solver import (
     parse_expression,
     evaluate_expression,
@@ -12,12 +10,17 @@ from .logic_solver import (
 from .derivation import (
     apply_inference_rules
 )
+
 from .inference import (
     modus_ponens,
     modus_tollens,
     disjunctive_syllogism,
     hypothetical_syllogism,
     double_negation
+)
+
+from .sat_solver import (
+    is_satisfiable
 )
 
 __all__ = [
@@ -32,6 +35,6 @@ __all__ = [
     "modus_tollens",
     "disjunctive_syllogism",
     "hypothetical_syllogism",
-    "double_negation"
-    
+    "double_negation",
+    "is_satisfiable"
 ]

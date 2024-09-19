@@ -2,7 +2,12 @@
 
 import click
 import sympy
-from sympy import symbols, Implies, Not
+from sympy import (
+    symbols, 
+    Implies, 
+    Not
+    )
+
 
 from common_tools import (
     is_congruent,
@@ -21,6 +26,7 @@ from logic import (
     classify_expression,
     are_equivalent,
     apply_inference_rules,
+    is_satisfiable
 )
 
 
@@ -157,6 +163,23 @@ def equivalent(expression1, expression2):
         click.echo("Las expresiones son equivalentes.")
     else:
         click.echo("Las expresiones NO son equivalentes.")
+
+@logic.command()
+@click.argument('expression')
+def sat(expression):
+    """
+    Verifica si una expresión lógica es satisfacible (SAT) o insatisfacible (UNSAT).
+    
+    Ejemplo:
+        python cli.py logic sat "(A | ~B) & (B | ~C)"
+    """
+    # Convertir la entrada a expresión simbólica
+    A, B, C = symbols('A B C')
+    expr = parse_expression(expression)
+
+    # Verificar satisfacibilidad
+    result = is_satisfiable(expr)
+    click.echo(f"La expresión {expression} es {result}")
 
 @cli.command()
 @click.argument('expressions', nargs=-1)
