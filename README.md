@@ -70,3 +70,4 @@ Si quieres contribuir al desarrollo de **DiscreTool**, sigue estos pasos:
 ## Licencia
 
 Este proyecto está licenciado bajo la licencia MIT - mira el archivo LICENSE para más detalles.
+
