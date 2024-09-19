@@ -52,12 +52,12 @@ def cli():
 @cli.group()
 def logic():
     """Operaciones de Lógica Proposicional"""
-    pass
+    # Aquí van los comandos definidos para lógica proposicional
 
 @cli.group()
 def common_tools():
     """Herramientas comunes de Matemáticas Discretas"""
-    pass
+    # Aquí van los comandos definidos para herramientas comunes
 
 # Aquí van los comandos definidos como antes, en logic y common_tools
 
