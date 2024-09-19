@@ -2,10 +2,10 @@
 
 import click
 import sympy
-from sympy import symbols, Implies, Not
+#from sympy import symbols, Implies, Not
 from sympy.parsing.sympy_parser import parse_expr
 
-from common_tools import (
+from src.common_tools import (
     is_congruent,
     solve_linear_congruence,
     solve_diophantine,
@@ -13,7 +13,7 @@ from common_tools import (
     lcm,
     generate_primes
 )
-from logic import (
+from src.logic import (
     parse_expression,
     evaluate_expression,
     truth_table,
@@ -24,7 +24,7 @@ from logic import (
     is_satisfiable
 )
 
-from utils import (
+from src.utils import (
     replace_implication,
     print_welcome_message
 )

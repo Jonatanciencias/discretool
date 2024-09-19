@@ -1,10 +1,12 @@
 # tests/test_logic_solver.py
 import unittest
+from sympy import And, symbols
 from src.logic import (
     parse_expression,
     evaluate_expression,
     are_equivalent
 )
+
 
 class TestLogicSolver(unittest.TestCase):
     """
@@ -31,8 +33,11 @@ class TestLogicSolver(unittest.TestCase):
         Assertions:
             - The string representation of the parsed expression should be "And(A, B)".
         """
+        # Definir símbolos A y B
+        A, B = symbols('A B')
+        # Parsear una expresión y comparar con la clase SymPy And
         expr = parse_expression("(A & B)")
-        self.assertEqual(str(expr), "And(A, B)")
+        self.assertEqual(expr, And(A, B))  # Comparar con la clase And usando símbolos
     
     def test_evaluate_expression(self):
         """

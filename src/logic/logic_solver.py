@@ -2,6 +2,9 @@
 
 from itertools import product
 from sympy import sympify, simplify_logic, to_dnf, to_cnf
+from src.utils import (
+    replace_implication,
+)
 
 
 def parse_expression(expr_str):
@@ -15,6 +18,8 @@ def parse_expression(expr_str):
         sympy.Expr: La expresión lógica parseada.
     """
     try:
+        # Reemplazar '->' con 'Implies' para SymPy
+        expr_str = replace_implication(expr_str)
         expr = sympify(expr_str)
         return expr
     except Exception as e:
