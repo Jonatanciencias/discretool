@@ -1,10 +1,11 @@
-""" Módulo de la interfaz de línea de comandos para operaciones de lógica proposicional. """
+"""" Módulo de la interfaz de línea de comandos para operaciones de lógica proposicional. """
 # src/logic/logic_cli.py
 
 import click
 import sympy
+from sympy.parsing.sympy_parser import parse_expr
 
-from src.logic.logic_solver import (
+from src.logic import (
     evaluate_expression,
     truth_table,
     parse_expression,
@@ -24,7 +25,7 @@ def logic_cli():
     """Operaciones de Lógica Proposicional"""
 
 
-# Definir los comandos aquí antes de agregarlos al grupo
+# Comando para evaluar una expresión lógica
 @click.command()
 @click.argument("expression")
 @click.option(
@@ -44,11 +45,12 @@ def evaluate(expression, assign):
             click.echo(f" - {suggestion}")
         return
 
+    # Normalizar la expresión antes del parseo
     expression = normalize_expression(expression)
     expression = replace_implication(expression)
 
     try:
-        expr = sympy.parse_expr(expression)
+        expr = parse_expr(expression)
         assignments = {var: val for var, val in assign}
         result = evaluate_expression(expr, assignments)
 
@@ -59,6 +61,7 @@ def evaluate(expression, assign):
         click.echo(f"Error: {str(e)}")
 
 
+# Comando para generar una tabla de verdad
 @click.command()
 @click.argument("expression")
 @click.option(
@@ -71,6 +74,11 @@ def evaluate(expression, assign):
 @click.option("--graph", is_flag=True, help="Generar una visualización gráfica de la tabla")
 def table(expression, export, filename, graph):
     """Genera la tabla de verdad para una expresión lógica."""
+    # Normalizar la expresión antes del parseo
+    click.echo(f"Expresión original: {expression}")
+    expression = normalize_expression(expression)
+    click.echo(f"Expresión normalizada: {expression}")
+    
     # Validación de la expresión antes de procesarla
     valid, feedback = validate_expression(expression)
     if not valid:
@@ -79,7 +87,6 @@ def table(expression, export, filename, graph):
             click.echo(f" - {suggestion}")
         return
 
-    expression = normalize_expression(expression)
     expression = replace_implication(expression)
     expr = parse_expression(expression)
     headers, table_data = truth_table(expr)
@@ -106,9 +113,8 @@ def table(expression, export, filename, graph):
         visualize_truth_table(headers, table_data, filename)
         click.echo(f"Gráfico de la tabla de verdad guardado como {filename}.png en la carpeta 'exports'.")
 
-
 # Agregar los comandos al grupo `logic_cli`
 logic_cli.add_command(evaluate)
 logic_cli.add_command(table)
 
-# También puedes agregar otros comandos aquí como `simplify`, `equivalent`, etc.
+# Puedes agregar otros comandos aquí como `simplify`, `equivalent`, etc.

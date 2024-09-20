@@ -1,4 +1,4 @@
-""" Normaliza la notación de la expresión para que SymPy pueda entenderla. """
+"""" Normaliza la notación de la expresión para que SymPy pueda entenderla. """
 # src/utils/normalize_expression.py
 
 def normalize_expression(expression):
@@ -29,7 +29,7 @@ def normalize_expression(expression):
         expr = expr.replace('¬', '~').replace('not', '~')
 
         # Eliminar cualquier referencia a rutas de archivo comunes
-        expr = expr.replace('C:Users', '')  # Otras rutas pueden agregarse aquí
+        expr = expr.replace('C:Users', '')
 
         # Eliminar posibles espacios innecesarios
         return expr.strip()
