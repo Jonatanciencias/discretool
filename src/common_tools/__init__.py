@@ -1,3 +1,4 @@
+""" This module contains the common tools used in number theory. """
 # src/common_tools/__init__.py
 
 from .congruences import (
@@ -25,3 +26,8 @@ __all__ = [
     "division_algorithm",
     "generate_primes"
 ]
+
+config = {
+    "version": "1.0.0",
+    "author": "Jonatan García"
+}

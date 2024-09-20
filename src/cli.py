@@ -1,8 +1,7 @@
-#/src/cli.py
-
+""" Módulo principal de la aplicación de Matemáticas Discretas 2. """
 import click
 import sympy
-#from sympy import symbols, Implies, Not
+from sympy import symbols, Implies, Not
 from sympy.parsing.sympy_parser import parse_expr
 
 from src.common_tools import (
@@ -21,13 +20,15 @@ from src.logic import (
     classify_expression,
     are_equivalent,
     apply_inference_rules,
-    is_satisfiable
+    is_satisfiable,
+    check_equivalence
 )
 
 from src.utils import (
     replace_implication,
     print_welcome_message
 )
+
 
 @click.group(invoke_without_command=True)
 @click.pass_context
@@ -126,7 +127,6 @@ def evaluate(expression, assign):
 @click.argument('expression')
 def table(expression):
     """Genera la tabla de verdad para una expresión lógica."""
-    # Reemplazar '->' por 'Implies'
     expression = replace_implication(expression)
     expr = parse_expression(expression)
     headers, table_data = truth_table(expr)
@@ -147,7 +147,6 @@ def table(expression):
               help="Forma normal a simplificar (dnf o cnf)")
 def simplify(expression, form):
     """Simplifica una expresión lógica a DNF o CNF."""
-    # Reemplazar '->' por 'Implies'
     expression = replace_implication(expression)
     expr = parse_expression(expression)
     simplified = simplify_expression(expr, form=form)
@@ -168,7 +167,6 @@ def classify(expression):
 @click.argument('expression2')
 def equivalent(expression1, expression2):
     """Verifica si dos expresiones lógicas son equivalentes."""
-    # Reemplazar '->' por 'Implies'
     expression1 = replace_implication(expression1)
     expression2 = replace_implication(expression2)
     expr1 = parse_expression(expression1)
@@ -183,31 +181,32 @@ def equivalent(expression1, expression2):
 @logic.command()
 @click.argument('expression')
 def sat(expression):
-    """
-    Verifica si una expresión lógica es satisfacible (SAT) o insatisfacible (UNSAT).
-    
-    Ejemplo:
-        python cli.py logic sat "(A | ~B) & (B | ~C)"
-    """
+    """Verifica si una expresión lógica es satisfacible (SAT) o insatisfacible (UNSAT)."""
     expr = parse_expression(expression)
-
-    # Verificar satisfacibilidad
     result = is_satisfiable(expr)
     click.echo(f"La expresión {expression} es {result}")
 
 
 @logic.command()
+@click.argument('expression1')
+@click.argument('expression2')
+def equivalence(expression1, expression2):
+    """Verifica si dos expresiones son equivalentes usando reglas de inferencia."""
+    result, steps = check_equivalence(expression1, expression2)
+    if result:
+        click.echo("Las expresiones son equivalentes.")
+        for step, rule in steps:
+            click.echo(f"{rule}: {step}")
+    else:
+        click.echo("Las expresiones NO son equivalentes.")
+
+
+@logic.command()
 @click.argument('expressions', nargs=-1)
 def derive(expressions):
-    """
-    Aplica deducción natural paso a paso para las expresiones dadas.
-    
-    Ejemplo:
-        python cli.py logic derive "(A -> B)" "A"
-    """
+    """Aplica deducción natural paso a paso para las expresiones dadas."""
     steps = []
     for expr in expressions:
-        # Reemplazar '->' por 'Implies' para manejar implicaciones
         expr = expr.replace("->", "Implies")
         try:
             steps.append(sympy.sympify(expr))  # Convierte la cadena en una expresión simbólica de manera segura
@@ -215,10 +214,7 @@ def derive(expressions):
             click.echo(f"Error al procesar la expresión: {expr}")
             return
     
-    # Aplica las reglas de inferencia paso a paso
     deductions = apply_inference_rules(steps)
-
-    # Mostrar los pasos deducidos
     for deduction in deductions:
         click.echo(deduction)
 
