@@ -47,5 +47,6 @@ from .common_tools import (
 from .utils import (
     print_welcome_message,
     replace_implication,
-    normalize_expression
+    normalize_expression,
+    
     )

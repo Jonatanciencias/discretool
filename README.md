@@ -72,16 +72,9 @@ Si quieres contribuir al desarrollo de **DiscreTool**, sigue estos pasos:
 Este proyecto está licenciado bajo la licencia MIT - mira el archivo LICENSE para más detalles.
 
 
-
 ```
 DiscreTool
 ├─ .git
-├─ .gitignore
-├─ exports
-│  ├─ table_output.csv
-│  ├─ truth_table.csv
-│  ├─ truth_table.md
-│  └─ truth_table_graph.png
 ├─ README.md
 ├─ requirements.txt
 ├─ setup.py
@@ -107,6 +100,8 @@ DiscreTool
 │  │  ├─ truth_table.py
 │  │  └─ __init__.py
 │  ├─ utils
+│  │  ├─ error_handling.py
+│  │  ├─ expression_validator.py
 │  │  ├─ helper.py
 │  │  ├─ normalize_expression.py
 │  │  ├─ replace_implication.py

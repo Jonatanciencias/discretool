@@ -16,9 +16,19 @@ from .normalize_expression import (
     normalize_expression
 )
 
+from .error_handling import (
+    check_common_errors,
+)
+
+from .expression_validator import (
+    validate_expression
+)
+
 __all__ = [
     "print_welcome_message",
     "replace_implication",
     "visualize_truth_table",
-    "normalize_expression"
+    "normalize_expression",
+    "check_common_errors",
+    "validate_expression"
 ]

@@ -1,4 +1,4 @@
-""" Módulo principal de la aplicación de Matemáticas Discretas 2. """
+"""" Módulo principal de la aplicación de Matemáticas Discretas 2. """
 
 # src/cli.py
 
@@ -33,7 +33,9 @@ from src.utils import (
     print_welcome_message,
     visualize_truth_table,
     normalize_expression,
+    validate_expression,  # Añadido para la validación y retroalimentación
 )
+
 
 @click.group(invoke_without_command=True)
 @click.pass_context
@@ -125,16 +127,21 @@ def solve_diophantine_command(a, b, c):
 def evaluate(expression, assign):
     """Evalúa una expresión lógica con asignaciones dadas."""
 
-    # Normalización de la expresión y reemplazo de implicaciones
+    # Verificar errores comunes y validar la expresión antes de procesar
+    valid, feedback = validate_expression(expression)
+    if not valid:
+        click.echo("Errores encontrados en la expresión:")
+        for suggestion in feedback:
+            click.echo(f" - {suggestion}")
+        return
+
     expression = normalize_expression(expression)
     expression = replace_implication(expression)
 
     try:
-        # Parseo de la expresión
+        # Parsear la expresión con SymPy
         expr = parse_expr(expression)
-        # Procesar las asignaciones de variables
         assignments = {var: val for var, val in assign}
-        # Evaluar la expresión lógica con las asignaciones
         result = evaluate_expression(expr, assignments)
 
         # Mostrar la expresión normalizada y el resultado
@@ -142,8 +149,8 @@ def evaluate(expression, assign):
         click.echo(f"Resultado: {result}")
 
     except (sympy.SympifyError, ValueError) as e:
-        # Manejo de errores durante el procesamiento
         click.echo(f"Error: {str(e)}")
+
 
 @logic.command()
 @click.argument("expression")
@@ -159,10 +166,17 @@ def evaluate(expression, assign):
 )
 def table(expression, export, filename, graph):
     """Genera la tabla de verdad para una expresión lógica."""
-    # Normalizar la expresión
-    expression = normalize_expression(expression)  # Asegúrate de que esto se aplique
-    expression = replace_implication(expression)  # Reemplazar implicaciones
-    expr = parse_expression(expression)  # Procesar la expresión con SymPy
+
+    valid, feedback = validate_expression(expression)
+    if not valid:
+        click.echo("Errores encontrados en la expresión:")
+        for suggestion in feedback:
+            click.echo(f" - {suggestion}")
+        return
+
+    expression = normalize_expression(expression)
+    expression = replace_implication(expression)
+    expr = parse_expression(expression)
     headers, table_data = truth_table(expr)
 
     # Mostrar la tabla en la terminal
@@ -205,9 +219,15 @@ def table(expression, export, filename, graph):
 )
 def simplify(expression, form):
     """Simplifica una expresión lógica a DNF o CNF."""
-    # Normalizar notación
+
+    valid, feedback = validate_expression(expression)
+    if not valid:
+        click.echo("Errores encontrados en la expresión:")
+        for suggestion in feedback:
+            click.echo(f" - {suggestion}")
+        return
+
     expression = normalize_expression(expression)
-    # Reemplazar '->' por '>>'
     expression = replace_implication(expression)
     expr = parse_expression(expression)
     simplified = simplify_expression(expr, form=form)
@@ -218,20 +238,43 @@ def simplify(expression, form):
 @click.argument("expression")
 def classify(expression):
     """Clasifica una expresión lógica como tautología, contradicción o contingencia."""
+    valid, feedback = validate_expression(expression)
+    if not valid:
+        click.echo("Errores encontrados en la expresión:")
+        for suggestion in feedback:
+            click.echo(f" - {suggestion}")
+        return
+
     expr = parse_expression(expression)
     classification = classify_expression(expr)
     click.echo(f"La expresión es una: {classification}")
 
+
 @logic.command()
-@click.argument('expression1')
-@click.argument('expression2')
+@click.argument("expression1")
+@click.argument("expression2")
 def equivalent(expression1, expression2):
     """Verifica si dos expresiones lógicas son equivalentes."""
+
+    valid1, feedback1 = validate_expression(expression1)
+    valid2, feedback2 = validate_expression(expression2)
+
+    if not valid1:
+        click.echo("Errores en la primera expresión:")
+        for suggestion in feedback1:
+            click.echo(f" - {suggestion}")
+        return
+
+    if not valid2:
+        click.echo("Errores en la segunda expresión:")
+        for suggestion in feedback2:
+            click.echo(f" - {suggestion}")
+        return
+
     try:
         expr1 = parse_expression(expression1)
         expr2 = parse_expression(expression2)
 
-        # Aquí se verifica si las expresiones son equivalentes
         are_equiv = are_equivalent(expr1, expr2)
         if are_equiv:
             click.echo("Las expresiones son equivalentes.")
@@ -240,10 +283,19 @@ def equivalent(expression1, expression2):
     except ValueError as e:
         click.echo(f"Error: {str(e)}")
 
+
 @logic.command()
 @click.argument("expression")
 def sat(expression):
     """Verifica si una expresión lógica es satisfacible (SAT) o insatisfacible (UNSAT)."""
+
+    valid, feedback = validate_expression(expression)
+    if not valid:
+        click.echo("Errores encontrados en la expresión:")
+        for suggestion in feedback:
+            click.echo(f" - {suggestion}")
+        return
+
     expr = parse_expression(expression)
     result = is_satisfiable(expr)
     click.echo(f"La expresión {expression} es {result}")
@@ -254,6 +306,22 @@ def sat(expression):
 @click.argument("expression2")
 def equivalence(expression1, expression2):
     """Verifica si dos expresiones son equivalentes usando reglas de inferencia."""
+
+    valid1, feedback1 = validate_expression(expression1)
+    valid2, feedback2 = validate_expression(expression2)
+
+    if not valid1:
+        click.echo("Errores en la primera expresión:")
+        for suggestion in feedback1:
+            click.echo(f" - {suggestion}")
+        return
+
+    if not valid2:
+        click.echo("Errores en la segunda expresión:")
+        for suggestion in feedback2:
+            click.echo(f" - {suggestion}")
+        return
+
     equiv_result, steps = check_equivalence(expression1, expression2)
     if equiv_result:
         click.echo("Las expresiones son equivalentes.")
@@ -271,7 +339,6 @@ def derive(expressions):
     for expr in expressions:
         expr = expr.replace("->", "Implies")
         try:
-            # Convierte la cadena en una expresión simbólica de manera segura
             steps.append(sympy.sympify(expr))
         except sympy.SympifyError:
             click.echo(f"Error al procesar la expresión: {expr}")
@@ -284,13 +351,16 @@ def derive(expressions):
 @logic.command()
 @click.argument("expression")
 def complexity(expression):
-    """
-    Analiza la complejidad de una expresión lógica.
+    """Analiza la complejidad de una expresión lógica."""
 
-    Muestra el número de operaciones lógicas y el número de variables.
-    """
+    valid, feedback = validate_expression(expression)
+    if not valid:
+        click.echo("Errores encontrados en la expresión:")
+        for suggestion in feedback:
+            click.echo(f" - {suggestion}")
+        return
+
     try:
-        # Reemplazar '->' por 'Implies' antes de analizar
         expression = replace_implication(expression)
         num_operations, num_variables = analyze_complexity(expression)
         click.echo(
