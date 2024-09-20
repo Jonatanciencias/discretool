@@ -1,4 +1,5 @@
 """Módulo con funciones para visualizar tablas de verdad."""
+# src/utils/visualize.py
 import os
 import matplotlib.pyplot as plt
 

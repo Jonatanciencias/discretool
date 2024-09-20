@@ -1,3 +1,4 @@
+""" Setup file for DiscreTool package. """
 # setup.py
 from setuptools import setup, find_packages
 

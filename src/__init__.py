@@ -1,11 +1,12 @@
-# src/__init__.py
-
 """
 Paquete principal de DiscreTool.
 
-Este paquete contiene los módulos necesarios para realizar cálculos y operaciones relacionados con matemáticas discretas.
-Incluye módulos para lógica proposicional, herramientas comunes, combinatoria, grafos, y utilidades adicionales.
+Este paquete contiene los módulos necesarios para realizar 
+cálculos y operaciones relacionados con matemáticas discretas.
+Incluye módulos para lógica proposicional, herramientas comunes, 
+combinatoria, grafos, y utilidades adicionales.
 """
+# src/__init__.py
 
 # Importar módulos de lógica proposicional
 from .logic import (
@@ -45,5 +46,6 @@ from .common_tools import (
 # Importar utilidades
 from .utils import (
     print_welcome_message,
-    replace_implication
-)
+    replace_implication,
+    normalize_expression
+    )

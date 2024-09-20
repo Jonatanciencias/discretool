@@ -1,7 +1,9 @@
 """ Módulo principal de la aplicación de Matemáticas Discretas 2. """
+
+# src/cli.py
+
 import click
 import sympy
-
 from sympy.parsing.sympy_parser import parse_expr
 
 from src.common_tools import (
@@ -10,7 +12,7 @@ from src.common_tools import (
     solve_diophantine,
     gcd,
     lcm,
-    generate_primes
+    generate_primes,
 )
 from src.logic import (
     parse_expression,
@@ -26,11 +28,11 @@ from src.logic import (
     export_truth_table_csv,
     export_truth_table_md,
 )
-
 from src.utils import (
     replace_implication,
     print_welcome_message,
-    visualize_truth_table
+    visualize_truth_table,
+    normalize_expression,
 )
 
 
@@ -41,9 +43,11 @@ def cli(ctx):
     if ctx.invoked_subcommand is None:
         print_welcome_message()  # Mostrar el mensaje de bienvenida
 
+
 @cli.group()
 def logic():
     """Operaciones de Lógica Proposicional"""
+
 
 @cli.group(name="common_tools")
 def common_tools():
@@ -51,36 +55,36 @@ def common_tools():
 
 
 # COMMON COMMANDS
-@common_tools.command(name='gcd_command')
-@click.argument('a', type=int)
-@click.argument('b', type=int)
+@common_tools.command(name="gcd_command")
+@click.argument("a", type=int)
+@click.argument("b", type=int)
 def gcd_command(a, b):
     """Calcula el MCD (Máximo Común Divisor) de dos números."""
     result = gcd(a, b)
     click.echo(f"El MCD de {a} y {b} es {result}")
 
 
-@common_tools.command(name='lcm_command')
-@click.argument('a', type=int)
-@click.argument('b', type=int)
+@common_tools.command(name="lcm_command")
+@click.argument("a", type=int)
+@click.argument("b", type=int)
 def lcm_command(a, b):
     """Calcula el MCM (Mínimo Común Múltiplo) de dos números."""
     result = lcm(a, b)
     click.echo(f"El MCM de {a} y {b} es {result}")
 
 
-@common_tools.command(name='primes')
-@click.argument('n', type=int)
+@common_tools.command(name="primes")
+@click.argument("n", type=int)
 def primes_command(n):
     """Genera todos los números primos menores o iguales a n."""
     prime_numbers = generate_primes(n)
     click.echo(f"Números primos menores o iguales a {n}: {prime_numbers}")
 
 
-@common_tools.command(name='congruence')
-@click.argument('a', type=int)
-@click.argument('b', type=int)
-@click.argument('m', type=int)
+@common_tools.command(name="congruence")
+@click.argument("a", type=int)
+@click.argument("b", type=int)
+@click.argument("m", type=int)
 def congruence(a, b, m):
     """Verifica si a es congruente con b módulo m."""
     if is_congruent(a, b, m):
@@ -89,20 +93,20 @@ def congruence(a, b, m):
         click.echo(f"{a} NO es congruente con {b} módulo {m}")
 
 
-@common_tools.command(name='solve-congruence')
-@click.argument('a', type=int)
-@click.argument('b', type=int)
-@click.argument('m', type=int)
+@common_tools.command(name="solve-congruence")
+@click.argument("a", type=int)
+@click.argument("b", type=int)
+@click.argument("m", type=int)
 def solve_congruence(a, b, m):
     """Resuelve la congruencia lineal ax ≡ b (mod m)."""
     solutions = solve_linear_congruence(a, b, m)
     click.echo(f"Soluciones de {a}x ≡ {b} (mod {m}): {solutions}")
 
 
-@common_tools.command(name='solve-diophantine-command')
-@click.argument('a', type=int)
-@click.argument('b', type=int)
-@click.argument('c', type=int)
+@common_tools.command(name="solve-diophantine-command")
+@click.argument("a", type=int)
+@click.argument("b", type=int)
+@click.argument("c", type=int)
 def solve_diophantine_command(a, b, c):
     """Resuelve la ecuación diofántica ax + by = c."""
     result = solve_diophantine(a, b, c)
@@ -111,61 +115,100 @@ def solve_diophantine_command(a, b, c):
 
 # LOGIC COMMANDS
 @logic.command()
-@click.argument('expression')
-@click.option('--assign', '-a', multiple=True, type=(str, bool),
-              help="Asignaciones de variables, e.g., -a A True -a B False")
+@click.argument("expression")
+@click.option(
+    "--assign",
+    "-a",
+    multiple=True,
+    type=(str, bool),
+    help="Asignaciones de variables, e.g., -a A True -a B False",
+)
 def evaluate(expression, assign):
     """Evalúa una expresión lógica con asignaciones dadas."""
-    # Reemplazar '->' por '>>'
+
+    # Normalización de la expresión y reemplazo de implicaciones
+    expression = normalize_expression(expression)
     expression = replace_implication(expression)
+
     try:
-        expr = parse_expr(expression)  # Usar parse_expr para entender '>>' como Implies
+        # Parseo de la expresión
+        expr = parse_expr(expression)
+        # Procesar las asignaciones de variables
         assignments = {var: val for var, val in assign}
+        # Evaluar la expresión lógica con las asignaciones
         result = evaluate_expression(expr, assignments)
+
+        # Mostrar la expresión normalizada y el resultado
+        click.echo(f"Expresión normalizada: {expression}")
         click.echo(f"Resultado: {result}")
+
     except (sympy.SympifyError, ValueError) as e:
-        click.echo(f"Error al procesar la expresión: {e}")
+        # Manejo de errores durante el procesamiento
+        click.echo(f"Error: {str(e)}")
 
 @logic.command()
-@click.argument('expression')
-@click.option('--export', type=click.Choice(['csv', 'md']), default=None,
-              help="Exportar la tabla de verdad a CSV o Markdown")
-@click.option('--filename', default="truth_table", help="Nombre del archivo exportado")
-@click.option('--graph', is_flag=True, help="Generar una visualización gráfica de la tabla")
+@click.argument("expression")
+@click.option(
+    "--export",
+    type=click.Choice(["csv", "md"]),
+    default=None,
+    help="Exportar la tabla de verdad a CSV o Markdown",
+)
+@click.option("--filename", default="truth_table", help="Nombre del archivo exportado")
+@click.option(
+    "--graph", is_flag=True, help="Generar una visualización gráfica de la tabla"
+)
 def table(expression, export, filename, graph):
     """Genera la tabla de verdad para una expresión lógica."""
-    expression = replace_implication(expression)
-    expr = parse_expression(expression)
+    # Normalizar la expresión
+    expression = normalize_expression(expression)  # Asegúrate de que esto se aplique
+    expression = replace_implication(expression)  # Reemplazar implicaciones
+    expr = parse_expression(expression)  # Procesar la expresión con SymPy
     headers, table_data = truth_table(expr)
 
     # Mostrar la tabla en la terminal
-    header_str = ' | '.join(headers)
-    separator = '-+-'.join(['-' * len(h) for h in headers])
+    header_str = " | ".join(headers)
+    separator = "-+-".join(["-" * len(h) for h in headers])
     click.echo(header_str)
     click.echo(separator)
     for row in table_data:
-        row_str = ' | '.join(['T' if row.get(h) else 'F' for h in headers])
+        row_str = " | ".join(["T" if row.get(h) else "F" for h in headers])
         click.echo(row_str)
 
-    # Exportar a CSV o Markdown en la carpeta 'exports'
-    if export == 'csv':
+    # Exportar a CSV o Markdown
+    if export == "csv":
         export_truth_table_csv(headers, table_data, f"{filename}.csv")
-        click.echo(f"Tabla de verdad exportada como {filename}.csv en la carpeta 'exports'.")
-    elif export == 'md':
+        click.echo(
+            f"Tabla de verdad exportada como {filename}.csv en la carpeta 'exports'."
+        )
+    elif export == "md":
         export_truth_table_md(headers, table_data, f"{filename}.md")
-        click.echo(f"Tabla de verdad exportada como {filename}.md en la carpeta 'exports'.")
+        click.echo(
+            f"Tabla de verdad exportada como {filename}.md en la carpeta 'exports'."
+        )
 
     # Visualización gráfica (opcional)
     if graph:
         visualize_truth_table(headers, table_data, filename)
-        click.echo(f"Gráfico de la tabla de verdad guardado como {filename}.png en la carpeta 'exports'.")
+        click.echo(
+            f"Gráfico de la tabla de verdad guardado como {filename}.png en la carpeta 'exports'."
+        )
+
 
 @logic.command()
-@click.argument('expression')
-@click.option('--form', '-f', type=click.Choice(['dnf', 'cnf']), default='dnf',
-              help="Forma normal a simplificar (dnf o cnf)")
+@click.argument("expression")
+@click.option(
+    "--form",
+    "-f",
+    type=click.Choice(["dnf", "cnf"]),
+    default="dnf",
+    help="Forma normal a simplificar (dnf o cnf)",
+)
 def simplify(expression, form):
     """Simplifica una expresión lógica a DNF o CNF."""
+    # Normalizar notación
+    expression = normalize_expression(expression)
+    # Reemplazar '->' por '>>'
     expression = replace_implication(expression)
     expr = parse_expression(expression)
     simplified = simplify_expression(expr, form=form)
@@ -173,7 +216,7 @@ def simplify(expression, form):
 
 
 @logic.command()
-@click.argument('expression')
+@click.argument("expression")
 def classify(expression):
     """Clasifica una expresión lógica como tautología, contradicción o contingencia."""
     expr = parse_expression(expression)
@@ -182,10 +225,14 @@ def classify(expression):
 
 
 @logic.command()
-@click.argument('expression1')
-@click.argument('expression2')
+@click.argument("expression1")
+@click.argument("expression2")
 def equivalent(expression1, expression2):
     """Verifica si dos expresiones lógicas son equivalentes."""
+    # Normalizar notación
+    expression1 = normalize_expression(expression1)
+    expression2 = normalize_expression(expression2)
+    # Reemplazar '->' por '>>'
     expression1 = replace_implication(expression1)
     expression2 = replace_implication(expression2)
     expr1 = parse_expression(expression1)
@@ -198,7 +245,7 @@ def equivalent(expression1, expression2):
 
 
 @logic.command()
-@click.argument('expression')
+@click.argument("expression")
 def sat(expression):
     """Verifica si una expresión lógica es satisfacible (SAT) o insatisfacible (UNSAT)."""
     expr = parse_expression(expression)
@@ -207,8 +254,8 @@ def sat(expression):
 
 
 @logic.command()
-@click.argument('expression1')
-@click.argument('expression2')
+@click.argument("expression1")
+@click.argument("expression2")
 def equivalence(expression1, expression2):
     """Verifica si dos expresiones son equivalentes usando reglas de inferencia."""
     result, steps = check_equivalence(expression1, expression2)
@@ -221,7 +268,7 @@ def equivalence(expression1, expression2):
 
 
 @logic.command()
-@click.argument('expressions', nargs=-1)
+@click.argument("expressions", nargs=-1)
 def derive(expressions):
     """Aplica deducción natural paso a paso para las expresiones dadas."""
     steps = []
@@ -237,22 +284,25 @@ def derive(expressions):
     for deduction in deductions:
         click.echo(deduction)
 
+
 @logic.command()
-@click.argument('expression')
+@click.argument("expression")
 def complexity(expression):
     """
     Analiza la complejidad de una expresión lógica.
-    
+
     Muestra el número de operaciones lógicas y el número de variables.
     """
     try:
         # Reemplazar '->' por 'Implies' antes de analizar
         expression = replace_implication(expression)
         num_operations, num_variables = analyze_complexity(expression)
-        click.echo(f"La expresión tiene {num_operations} operaciones lógicas y {num_variables} variables.")
+        click.echo(
+            f"La expresión tiene {num_operations} operaciones lógicas y {num_variables} variables."
+        )
     except (sympy.SympifyError, ValueError) as e:
         click.echo(f"Error al procesar la expresión: {e}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()

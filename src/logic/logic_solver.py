@@ -1,29 +1,41 @@
+""" Módulo con funciones para resolver problemas de lógica proposicional. """
 # src/logic/logic_solver.py
 
 from itertools import product
-from sympy import sympify, simplify_logic, to_dnf, to_cnf
-from src.utils import (
-    replace_implication,
-)
+import sympy
+from sympy import simplify_logic, to_dnf, to_cnf
+from sympy.core.sympify import SympifyError
+from src.utils.normalize_expression import normalize_expression
+from src.utils.replace_implication import replace_implication
 
 
 def parse_expression(expr_str):
     """
-    Convierte una cadena de texto en una expresión lógica de SymPy.
-    
-    Args:
-        expr_str (str): La expresión lógica en formato de cadena.
-        
-    Returns:
-        sympy.Expr: La expresión lógica parseada.
+    Toma una cadena de expresión lógica y la convierte en una expresión SymPy.
+    Normaliza los operadores lógicos y procesa la implicación para SymPy.
     """
     try:
-        # Reemplazar '->' con 'Implies' para SymPy
+        # Paso 1: Normalizar la expresión (ver si la normalización está funcionando)
+        print(f"Expresión original: {expr_str}")
+        expr_str = normalize_expression(expr_str)
+        print(f"Expresión normalizada: {expr_str}")
+
+        # Paso 2: Reemplazar las implicaciones por >>
         expr_str = replace_implication(expr_str)
-        expr = sympify(expr_str)
+        print(f"Expresión con implicaciones reemplazadas: {expr_str}")
+
+        # Paso 3: Intentar convertir la expresión en un objeto de SymPy
+        expr = sympy.sympify(expr_str)
+        print(f"Expresión parseada por SymPy: {expr}")
         return expr
-    except Exception as e:
+
+    except SympifyError as e:
+        print(f"Error en SymPy: {e}")
         raise ValueError(f"Error al parsear la expresión: {e}") from e
+
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+        raise ValueError(f"Error inesperado al procesar la expresión: {e}") from e
 
 def evaluate_expression(expr, assignments):
     """
