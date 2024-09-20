@@ -35,7 +35,6 @@ from src.utils import (
     normalize_expression,
 )
 
-
 @click.group(invoke_without_command=True)
 @click.pass_context
 def cli(ctx):
@@ -223,26 +222,23 @@ def classify(expression):
     classification = classify_expression(expr)
     click.echo(f"La expresión es una: {classification}")
 
-
 @logic.command()
-@click.argument("expression1")
-@click.argument("expression2")
+@click.argument('expression1')
+@click.argument('expression2')
 def equivalent(expression1, expression2):
     """Verifica si dos expresiones lógicas son equivalentes."""
-    # Normalizar notación
-    expression1 = normalize_expression(expression1)
-    expression2 = normalize_expression(expression2)
-    # Reemplazar '->' por '>>'
-    expression1 = replace_implication(expression1)
-    expression2 = replace_implication(expression2)
-    expr1 = parse_expression(expression1)
-    expr2 = parse_expression(expression2)
-    are_equivalent_result = are_equivalent(expr1, expr2)
-    if are_equivalent_result:
-        click.echo("Las expresiones son equivalentes.")
-    else:
-        click.echo("Las expresiones NO son equivalentes.")
+    try:
+        expr1 = parse_expression(expression1)
+        expr2 = parse_expression(expression2)
 
+        # Aquí se verifica si las expresiones son equivalentes
+        are_equiv = are_equivalent(expr1, expr2)
+        if are_equiv:
+            click.echo("Las expresiones son equivalentes.")
+        else:
+            click.echo("Las expresiones NO son equivalentes.")
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}")
 
 @logic.command()
 @click.argument("expression")
@@ -258,8 +254,8 @@ def sat(expression):
 @click.argument("expression2")
 def equivalence(expression1, expression2):
     """Verifica si dos expresiones son equivalentes usando reglas de inferencia."""
-    result, steps = check_equivalence(expression1, expression2)
-    if result:
+    equiv_result, steps = check_equivalence(expression1, expression2)
+    if equiv_result:
         click.echo("Las expresiones son equivalentes.")
         for step, rule in steps:
             click.echo(f"{rule}: {step}")
