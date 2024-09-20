@@ -1,7 +1,7 @@
 """ Módulo principal de la aplicación de Matemáticas Discretas 2. """
 import click
 import sympy
-from sympy import symbols, Implies, Not
+
 from sympy.parsing.sympy_parser import parse_expr
 
 from src.common_tools import (
@@ -47,7 +47,7 @@ def common_tools():
 
 
 # COMMON COMMANDS
-@common_tools.command()
+@common_tools.command(name='gcd_command')
 @click.argument('a', type=int)
 @click.argument('b', type=int)
 def gcd_command(a, b):
@@ -56,7 +56,7 @@ def gcd_command(a, b):
     click.echo(f"El MCD de {a} y {b} es {result}")
 
 
-@common_tools.command()
+@common_tools.command(name='lcm_command')
 @click.argument('a', type=int)
 @click.argument('b', type=int)
 def lcm_command(a, b):
@@ -65,15 +65,15 @@ def lcm_command(a, b):
     click.echo(f"El MCM de {a} y {b} es {result}")
 
 
-@common_tools.command()
+@common_tools.command(name='primes')
 @click.argument('n', type=int)
-def primes(n):
+def primes_command(n):
     """Genera todos los números primos menores o iguales a n."""
-    primes = generate_primes(n)
-    click.echo(f"Números primos menores o iguales a {n}: {primes}")
+    prime_numbers = generate_primes(n)
+    click.echo(f"Números primos menores o iguales a {n}: {prime_numbers}")
 
 
-@common_tools.command()
+@common_tools.command(name='congruence')
 @click.argument('a', type=int)
 @click.argument('b', type=int)
 @click.argument('m', type=int)
@@ -85,7 +85,7 @@ def congruence(a, b, m):
         click.echo(f"{a} NO es congruente con {b} módulo {m}")
 
 
-@common_tools.command()
+@common_tools.command(name='solve-congruence')
 @click.argument('a', type=int)
 @click.argument('b', type=int)
 @click.argument('m', type=int)
@@ -95,7 +95,7 @@ def solve_congruence(a, b, m):
     click.echo(f"Soluciones de {a}x ≡ {b} (mod {m}): {solutions}")
 
 
-@common_tools.command()
+@common_tools.command(name='solve-diophantine-command')
 @click.argument('a', type=int)
 @click.argument('b', type=int)
 @click.argument('c', type=int)
@@ -171,8 +171,8 @@ def equivalent(expression1, expression2):
     expression2 = replace_implication(expression2)
     expr1 = parse_expression(expression1)
     expr2 = parse_expression(expression2)
-    equivalence = are_equivalent(expr1, expr2)
-    if equivalence:
+    are_equivalent_result = are_equivalent(expr1, expr2)
+    if are_equivalent_result:
         click.echo("Las expresiones son equivalentes.")
     else:
         click.echo("Las expresiones NO son equivalentes.")
@@ -209,11 +209,11 @@ def derive(expressions):
     for expr in expressions:
         expr = expr.replace("->", "Implies")
         try:
-            steps.append(sympy.sympify(expr))  # Convierte la cadena en una expresión simbólica de manera segura
+            # Convierte la cadena en una expresión simbólica de manera segura
+            steps.append(sympy.sympify(expr))
         except sympy.SympifyError:
             click.echo(f"Error al procesar la expresión: {expr}")
             return
-    
     deductions = apply_inference_rules(steps)
     for deduction in deductions:
         click.echo(deduction)
