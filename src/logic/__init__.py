@@ -7,7 +7,7 @@ from .logic_solver import (
     truth_table,
     simplify_expression,
     classify_expression,
-    are_equivalent
+    are_equivalent,
 )
 
 from .derivation import (
@@ -37,6 +37,10 @@ from .inference_rules import (
     distribution
 )
 
+from .complexity_analysis import (
+    analyze_complexity
+)
+
 __all__ = [
     "parse_expression",
     "evaluate_expression",
@@ -55,5 +59,6 @@ __all__ = [
     "de_morgan",
     "idempotence",
     "absorption",
-    "distribution"
+    "distribution",
+    "analyze_complexity"
 ]

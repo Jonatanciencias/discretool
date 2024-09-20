@@ -21,7 +21,8 @@ from src.logic import (
     are_equivalent,
     apply_inference_rules,
     is_satisfiable,
-    check_equivalence
+    check_equivalence,
+    analyze_complexity
 )
 
 from src.utils import (
@@ -217,6 +218,22 @@ def derive(expressions):
     deductions = apply_inference_rules(steps)
     for deduction in deductions:
         click.echo(deduction)
+
+@logic.command()
+@click.argument('expression')
+def complexity(expression):
+    """
+    Analiza la complejidad de una expresión lógica.
+    
+    Muestra el número de operaciones lógicas y el número de variables.
+    """
+    try:
+        # Reemplazar '->' por 'Implies' antes de analizar
+        expression = replace_implication(expression)
+        num_operations, num_variables = analyze_complexity(expression)
+        click.echo(f"La expresión tiene {num_operations} operaciones lógicas y {num_variables} variables.")
+    except (sympy.SympifyError, ValueError) as e:
+        click.echo(f"Error al procesar la expresión: {e}")
 
 
 if __name__ == '__main__':
