@@ -1,3 +1,4 @@
+"""Módulo con funciones para visualizar tablas de verdad."""
 import os
 import matplotlib.pyplot as plt
 
