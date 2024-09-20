@@ -8,7 +8,12 @@ from .replace_implication import (
     replace_implication
     )
 
+from .visualize import (
+    visualize_truth_table
+)
+
 __all__ = [
     "print_welcome_message",
-    "replace_implication"
+    "replace_implication",
+    "visualize_truth_table"
 ]

@@ -4,7 +4,6 @@
 from .logic_solver import (
     parse_expression,
     evaluate_expression,
-    truth_table,
     simplify_expression,
     classify_expression,
     are_equivalent,
@@ -40,6 +39,9 @@ from .inference_rules import (
 from .complexity_analysis import (
     analyze_complexity
 )
+
+from .truth_table import truth_table, export_truth_table_csv, export_truth_table_md
+
 
 __all__ = [
     "parse_expression",

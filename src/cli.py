@@ -22,12 +22,15 @@ from src.logic import (
     apply_inference_rules,
     is_satisfiable,
     check_equivalence,
-    analyze_complexity
+    analyze_complexity,
+    export_truth_table_csv,
+    export_truth_table_md,
 )
 
 from src.utils import (
     replace_implication,
-    print_welcome_message
+    print_welcome_message,
+    visualize_truth_table
 )
 
 
@@ -123,24 +126,39 @@ def evaluate(expression, assign):
     except (sympy.SympifyError, ValueError) as e:
         click.echo(f"Error al procesar la expresión: {e}")
 
-
 @logic.command()
 @click.argument('expression')
-def table(expression):
+@click.option('--export', type=click.Choice(['csv', 'md']), default=None,
+              help="Exportar la tabla de verdad a CSV o Markdown")
+@click.option('--filename', default="truth_table", help="Nombre del archivo exportado")
+@click.option('--graph', is_flag=True, help="Generar una visualización gráfica de la tabla")
+def table(expression, export, filename, graph):
     """Genera la tabla de verdad para una expresión lógica."""
     expression = replace_implication(expression)
     expr = parse_expression(expression)
     headers, table_data = truth_table(expr)
 
-    # Formatear la tabla para mostrarla
+    # Mostrar la tabla en la terminal
     header_str = ' | '.join(headers)
     separator = '-+-'.join(['-' * len(h) for h in headers])
     click.echo(header_str)
     click.echo(separator)
     for row in table_data:
-        row_str = ' | '.join(['T' if row[h] else 'F' for h in headers])
+        row_str = ' | '.join(['T' if row.get(h) else 'F' for h in headers])
         click.echo(row_str)
 
+    # Exportar a CSV o Markdown en la carpeta 'exports'
+    if export == 'csv':
+        export_truth_table_csv(headers, table_data, f"{filename}.csv")
+        click.echo(f"Tabla de verdad exportada como {filename}.csv en la carpeta 'exports'.")
+    elif export == 'md':
+        export_truth_table_md(headers, table_data, f"{filename}.md")
+        click.echo(f"Tabla de verdad exportada como {filename}.md en la carpeta 'exports'.")
+
+    # Visualización gráfica (opcional)
+    if graph:
+        visualize_truth_table(headers, table_data, filename)
+        click.echo(f"Gráfico de la tabla de verdad guardado como {filename}.png en la carpeta 'exports'.")
 
 @logic.command()
 @click.argument('expression')
