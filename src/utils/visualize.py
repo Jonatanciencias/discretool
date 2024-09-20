@@ -1,5 +1,6 @@
 """Módulo con funciones para visualizar tablas de verdad."""
 # src/utils/visualize.py
+
 import os
 import matplotlib.pyplot as plt
 
@@ -19,7 +20,7 @@ def visualize_truth_table(headers, table_data, filename="truth_table"):
     filepath = os.path.join(EXPORT_FOLDER, f"{filename}.png")
     
     # Preparar los datos para el gráfico
-    fig, ax = plt.subplots()
+    _, ax = plt.subplots()
     ax.axis('tight')
     ax.axis('off')
 

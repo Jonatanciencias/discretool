@@ -1,4 +1,4 @@
-""" logic module"""
+""" logic module """
 # src/logic/__init__.py
 
 from .logic_solver import (
@@ -6,7 +6,7 @@ from .logic_solver import (
     evaluate_expression,
     simplify_expression,
     classify_expression,
-    are_equivalent,
+    are_equivalent
 )
 
 from .derivation import (
@@ -22,7 +22,7 @@ from .inference import (
 )
 
 from .sat_solver import (
-    is_satisfiable
+    is_satisfiable  # Solo importar desde sat_solver
 )
 
 from .equivalence_solver import (
@@ -56,8 +56,7 @@ __all__ = [
     "disjunctive_syllogism",
     "hypothetical_syllogism",
     "double_negation",
-    "is_satisfiable",
-    "check_equivalence",
+    "is_satisfiable", 
     "de_morgan",
     "idempotence",
     "absorption",
