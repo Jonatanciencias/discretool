@@ -1,4 +1,3 @@
-""" Módulo con funciones de ayuda para la aplicación. """
 # src/utils/helper.py
 
 import click

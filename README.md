@@ -1,4 +1,10 @@
-# DiscreTool
+    ============================================================================   
+    8888b.  88 .dP"Y8  dP""b8 88""Yb 888888 888888  dP"Yb   dP"Yb  88     .dP"Y8
+     8I  Yb 88 `Ybo." dP   `" 88__dP 88__     88   dP   Yb dP   Yb 88     `Ybo."
+     8I  dY 88 o.`Y8b Yb      88"Yb  88""     88   Yb   dP Yb   dP 88  .o o.`Y8b
+    8888Y"  88 8bodP'  YboodP 88  Yb 888888   88    YbodP   YbodP  88ood8 8bodP'                   
+    ============================================================================
+         Bienvenido a DiscreTool - Tu Herramienta para Matemáticas Discretas
 
 **DiscreTool** es una herramienta CLI (línea de comandos) desarrollada en Python para facilitar la resolución de problemas comunes en Matemáticas Discretas. Incluye funcionalidades para lógica proposicional, operaciones aritméticas, combinatoria, grafos, y recursión.
 
