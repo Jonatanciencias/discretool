@@ -62,6 +62,9 @@ pip install -r requirements.txt
 ```
 ### Ejecución de Comandos
 
+- **Operaciones comunes**:
+[Common Operations](DiscreTool/examples/common_operations.md)
+
 - **Lógica Proposicional**:
 ```bash
 python -m src.cli logic evaluate "A ∧ B → C" -a A True -a B False -a C True
