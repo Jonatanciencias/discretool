@@ -2,7 +2,6 @@
 """ Inference rules for logical expressions. """
 import sympy
 
-
 def de_morgan(expr):
     """Aplica la ley de De Morgan si es posible."""
     if isinstance(expr, sympy.Not):
