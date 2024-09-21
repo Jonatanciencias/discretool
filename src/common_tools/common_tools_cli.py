@@ -1,5 +1,4 @@
 """CLI para las herramientas comunes de Matemáticas Discretas."""
-
 # src/common_tools/common_tools_cli.py
 
 import click

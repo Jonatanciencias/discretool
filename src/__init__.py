@@ -6,7 +6,6 @@ cálculos y operaciones relacionados con matemáticas discretas.
 Incluye módulos para lógica proposicional, herramientas comunes, 
 combinatoria, grafos, y utilidades adicionales.
 """
-
 # src/__init__.py
 
 # Importar módulos de lógica proposicional

@@ -1,3 +1,6 @@
+"""Módulo para analizar la complejidad de expresiones lógicas."""
+# src/logic/complexity_analysis.py
+
 import sympy
 from sympy.logic.boolalg import BooleanFunction
 

@@ -1,3 +1,4 @@
+""" Módulo con funciones para exportar la tabla de verdad a CSV o Markdown. """
 # src/utils/export_tools.py
 
 import csv

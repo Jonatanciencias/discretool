@@ -1,5 +1,7 @@
 
 """ Inference rules for logical expressions. """
+# src/logic/inference_rules.py
+
 import sympy
 
 def de_morgan(expr):

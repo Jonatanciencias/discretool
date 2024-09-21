@@ -1,3 +1,4 @@
+""" Este módulo se utiliza para importar todas las funciones del paquete utils. """
 # src/utils/__init__.py
 
 from .error_handling import check_common_errors

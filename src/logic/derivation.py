@@ -1,3 +1,5 @@
+"""Módulo que contiene funciones para aplicar 
+reglas de inferencia a proposiciones lógicas."""
 # src/logic/derivation.py
 
 from sympy import Implies, Or, Not
