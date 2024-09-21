@@ -40,6 +40,7 @@ def evaluate(expression, assign):
 
     # Normalizar la expresión antes de cualquier operación
     expression = normalize_expression(expression)
+    click.echo(f"DEBUG: Expresión normalizada: {expression}")
 
     # Validación de la expresión antes de procesarla
     valid, feedback = validate_expression(expression)
@@ -52,19 +53,27 @@ def evaluate(expression, assign):
     try:
         # Parsear la expresión con SymPy
         expr = parse_expr(expression)
+        click.echo(f"DEBUG: Expresión parseada por SymPy: {expr}")
+
         assignments = {var: val for var, val in assign}
+        click.echo(f"DEBUG: Asignaciones proporcionadas: {assignments}")
 
         # Evaluar la expresión con las asignaciones
-        evaluated_expr = expr.subs(assignments)
+        if isinstance(expr, bool):
+            result = expr  # Si ya es booleana, no hace falta sustituir
+            click.echo(f"DEBUG: Expresión evaluada como booleana: {result}")
+        else:
+            evaluated_expr = expr.subs(assignments)
+            click.echo(f"DEBUG: Expresión después de aplicar subs(): {evaluated_expr}")
 
-        # Verificar si la evaluación dio un resultado booleano
-        result = handle_boolean_expression(evaluated_expr)
+            # Si es una expresión booleana, manejarla con el módulo de booleanos
+            result = handle_boolean_expression(evaluated_expr)
 
-        click.echo(f"Expresión normalizada: {expression}")
         click.echo(f"Resultado: {result}")
 
     except (sympy.SympifyError, ValueError) as e:
         click.echo(f"Error: {str(e)}")
+
 
 
 # Comando para generar una tabla de verdad
