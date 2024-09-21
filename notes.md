@@ -1,0 +1,2 @@
+- Arreglar carpeta para exportar
+- Los archivos exportados deben tener la fecha de exportacion en el nombre
