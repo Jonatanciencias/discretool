@@ -34,5 +34,7 @@ scratch/
 # Ignore system files
 .DS_Store
 Thumbs.db
+
+# Ignore database files for projectTree
 #.git/
 

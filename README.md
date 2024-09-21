@@ -25,7 +25,10 @@
 - **Cálculo del MCM**: Calcula el mínimo común múltiplo.
 - **Generación de números primos**: Genera números primos hasta un valor especificado.
 - **Congruencias**: Verifica si dos números son congruentes en un módulo dado.
-- **Ecuaciones diofánticas**: Resuelve ecuaciones del tipo ax+by=cax + by = cax+by=c.
+- **Ecuaciones diofánticas**: Resuelve ecuaciones del tipo ax + by = c.
+- **Aritmética modular**: Realiza operaciones de aritmética modular.
+- **Factorización prima**: Descompone un número en sus factores primos.
+
 
 ### Próximas Funcionalidades
 
@@ -95,10 +98,19 @@ Si deseas contribuir:
 
 ## Estructura
 
+
+
+## Licencia
+
+Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
+
+---
+```
 DiscreTool
 ├─ .gitignore
 ├─ examples
-│  └─ common_operations.md
+│  ├─ common_operations.md
+│  └─ common_tools_examples.md
 ├─ README.md
 ├─ requirements.txt
 ├─ setup.py
@@ -111,6 +123,8 @@ DiscreTool
 │  │  ├─ common_tools_cli.py
 │  │  ├─ congruences.py
 │  │  ├─ gcd_lcm.py
+│  │  ├─ modular_arithmetic.py
+│  │  ├─ prime_factorization.py
 │  │  ├─ prime_tools.py
 │  │  └─ __init__.py
 │  ├─ graphs
@@ -146,8 +160,4 @@ DiscreTool
    ├─ test_common_tools.py
    └─ test_logic_solver.py
 
-## Licencia
-
-Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
-
----
+```
