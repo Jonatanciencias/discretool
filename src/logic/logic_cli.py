@@ -16,6 +16,7 @@ from src.utils import (
     export_to_csv,
     export_to_md,
     visualize_truth_table,
+    handle_boolean_expression
 )
 
 
@@ -36,7 +37,7 @@ def logic_cli():
 )
 def evaluate(expression, assign):
     """Evalúa una expresión lógica con asignaciones dadas."""
-    
+
     # Normalizar la expresión antes de cualquier operación
     expression = normalize_expression(expression)
 
@@ -52,7 +53,12 @@ def evaluate(expression, assign):
         # Parsear la expresión con SymPy
         expr = parse_expr(expression)
         assignments = {var: val for var, val in assign}
-        result = evaluate_expression(expr, assignments)
+
+        # Evaluar la expresión con las asignaciones
+        evaluated_expr = expr.subs(assignments)
+
+        # Verificar si la evaluación dio un resultado booleano
+        result = handle_boolean_expression(evaluated_expr)
 
         click.echo(f"Expresión normalizada: {expression}")
         click.echo(f"Resultado: {result}")

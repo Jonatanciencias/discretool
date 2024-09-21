@@ -42,7 +42,6 @@ from .complexity_analysis import (
 
 from .truth_table import truth_table, export_truth_table_csv, export_truth_table_md
 
-
 __all__ = [
     "parse_expression",
     "evaluate_expression",
@@ -61,5 +60,5 @@ __all__ = [
     "idempotence",
     "absorption",
     "distribution",
-    "analyze_complexity"
+    "analyze_complexity",
 ]

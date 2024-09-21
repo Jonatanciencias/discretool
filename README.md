@@ -77,7 +77,6 @@ Este proyecto está licenciado bajo la licencia MIT - mira el archivo LICENSE pa
 
 ```
 DiscreTool
-├─ .git
 ├─ .gitignore
 ├─ README.md
 ├─ requirements.txt
@@ -116,7 +115,6 @@ DiscreTool
 │  │  ├─ expression_validator.py
 │  │  ├─ helper.py
 │  │  ├─ normalize_expression.py
-│  │  ├─ replace_implication.py
 │  │  ├─ visualize.py
 │  │  └─ __init__.py
 │  └─ __init__.py

@@ -43,7 +43,9 @@ from .utils import (
     export_to_md,    # Función actualizada
     visualize_truth_table,
     check_common_errors,
+    handle_boolean_expression
 )
+
 
 # Futuras expansiones para combinatoria, grafos y recursión
 # from .combinatorics import (
@@ -92,4 +94,5 @@ __all__ = [
     "export_to_md",    # Función actualizada
     "visualize_truth_table",
     "check_common_errors",
+    "handle_boolean_expression",
 ]

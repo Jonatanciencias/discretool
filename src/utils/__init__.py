@@ -7,6 +7,7 @@ from .normalize_expression import normalize_expression
 from .visualize import visualize_truth_table
 from .helper import print_welcome_message
 from .export_tools import export_to_csv, export_to_md
+from .boolean_handler import handle_boolean_expression
 
 __all__ = [
     "check_common_errors",
@@ -15,5 +16,6 @@ __all__ = [
     "visualize_truth_table",
     "print_welcome_message",
     "export_to_csv",  
-    "export_to_md",  
+    "export_to_md",
+    "handle_boolean_expression",
 ]
