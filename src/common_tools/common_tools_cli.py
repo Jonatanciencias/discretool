@@ -49,7 +49,7 @@ def primes_command(n):
     click.echo(f"Números primos menores o iguales a {n}: {prime_numbers}")
 
 
-@common_tools_cli.command(name="congruence")
+@common_tools_cli.command(name="is_congruent")
 @click.argument("a", type=int)
 @click.argument("b", type=int)
 @click.argument("m", type=int)
@@ -61,7 +61,7 @@ def congruence(a, b, m):
         click.echo(f"{a} NO es congruente con {b} módulo {m}")
 
 
-@common_tools_cli.command(name="solve_congruence")
+@common_tools_cli.command(name="solve_congruent")
 @click.argument("a", type=int)
 @click.argument("b", type=int)
 @click.argument("m", type=int)
@@ -79,6 +79,7 @@ def solve_diophantine_command(a, b, c):
     """Resuelve la ecuación diofántica ax + by = c."""
     result = solve_diophantine(a, b, c)
     click.echo(f"Solución para la ecuación {a}x + {b}y = {c}: {result}")
+
 
 
 if __name__ == "__main__":

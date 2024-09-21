@@ -134,10 +134,12 @@ def classify(expression):
     """Clasifica una expresión lógica como tautología, contradicción o contingencia."""
     expression = normalize_expression(expression)
     expr = parse_expression(expression)
+
+    simplified_expr = sympy.simplify_logic(expr)
     
-    if expr.is_tautology():
+    if simplified_expr == True:
         result = "tautología"
-    elif expr.is_contradiction():
+    elif simplified_expr == False:
         result = "contradicción"
     else:
         result = "contingencia"
