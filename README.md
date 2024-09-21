@@ -63,7 +63,7 @@ pip install -r requirements.txt
 ### Ejecución de Comandos
 
 - **Operaciones comunes**:
-[Common Operations](DiscreTool/examples/common_operations.md)
+[Common Operations](https://github.com/Jonatanciencias/discretool/blob/43ded09c6e713d75fe100ec009cacfe6e4080a51/examples/common_operations.md)
 
 - **Lógica Proposicional**:
 ```bash
