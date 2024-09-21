@@ -34,3 +34,11 @@
 9. **Algoritmo Extendido de Euclides**:
     
     `python -m src.cli common_tools extended_gcd 56 98`
+
+10. **Algoritmo de la division**:
+
+ `python -m src.cli common_tools division_alg 10 3`
+
+11. **Algoritmo extendido de Euclides**
+
+`python -m src.cli common_tools extended_gcd 56 15`
