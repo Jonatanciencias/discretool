@@ -94,3 +94,30 @@ python -m src.cli common_tools solve_diophantine 3 5 7
 python -m src.cli common_tools solve_diophantine 10 4 6
 python -m src.cli common_tools solve_diophantine 15 9 3
 ```
+12. Clasificar 
+
+Expresión válida que es una tautología:
+```bash
+python -m src.cli logic classify "A ∨ ¬A"
+```
+
+Expresión válida que es una contradicción:
+```bash
+python -m src.cli logic classify "A ∧ ¬A"
+```
+
+Prueba con contingencia
+```bash
+python -m src.cli logic classify "(A ∧ B) → C"
+```
+
+Prueba con implicación sin normalizar
+```bash
+python -m src.cli logic classify "(A ∧ B) => C"
+```
+
+Prueba con bicondicional incorrecto
+```bash
+python -m src.cli logic classify "A <=> B"
+```
+

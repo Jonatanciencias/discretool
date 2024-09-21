@@ -15,7 +15,9 @@ from src.utils import (
     export_to_csv,
     export_to_md,
     visualize_truth_table,
-    handle_boolean_expression
+    handle_boolean_expression,
+    check_common_errors,
+    handle_sympy_error
 )
 
 
@@ -145,32 +147,78 @@ def simplify(expression, form):
 @click.argument("expression")
 def classify(expression):
     """Clasifica una expresión lógica como tautología, contradicción o contingencia."""
+    
+    # Normalización y validación
     expression = normalize_expression(expression)
-    expr = parse_expression(expression)
-
-    simplified_expr = sympy.simplify_logic(expr)
+    valid, feedback = validate_expression(expression)
     
-    if simplified_expr:
-        result = "tautología"
-    elif not simplified_expr:
-        result = "contradicción"
-    else:
-        result = "contingencia"
+    if not valid:
+        click.echo("Errores encontrados en la expresión:")
+        for suggestion in feedback:
+            click.echo(f" - {suggestion}")
+        return
     
-    click.echo(f"La expresión es una {result}.")
+    try:
+        # Parseo y simplificación
+        expr = parse_expression(expression)
+        simplified_expr = sympy.simplify_logic(expr)
+        
+        # Clasificación basada en el resultado simplificado
+        if isinstance(simplified_expr, bool):
+            if simplified_expr:
+                result = "tautología"
+            else:
+                result = "contradicción"
+        else:
+            # Si no se simplifica a un booleano, lo tratamos como una contingencia
+            result = "contingencia"
+        
+        click.echo(f"La expresión es una {result}.")
+    
+    except Exception as e:
+        # Manejo de errores
+        click.echo(f"Error al procesar la expresión: {str(e)}")
+        check_common_errors(expression)
 
 @click.command()
 @click.argument("expression1")
 @click.argument("expression2")
 def equivalent(expression1, expression2):
     """Verifica si dos expresiones son equivalentes."""
-    expr1 = parse_expression(normalize_expression(expression1))
-    expr2 = parse_expression(normalize_expression(expression2))
     
-    if sympy.simplify_logic(expr1) == sympy.simplify_logic(expr2):
-        click.echo("Las expresiones son equivalentes.")
-    else:
-        click.echo("Las expresiones no son equivalentes.")
+    # Normalización y validación
+    expression1 = normalize_expression(expression1)
+    expression2 = normalize_expression(expression2)
+    
+    valid1, feedback1 = validate_expression(expression1)
+    valid2, feedback2 = validate_expression(expression2)
+    
+    if not valid1 or not valid2:
+        click.echo("Errores encontrados en las expresiones:")
+        if not valid1:
+            for suggestion in feedback1:
+                click.echo(f" - {suggestion} en la primera expresión")
+        if not valid2:
+            for suggestion in feedback2:
+                click.echo(f" - {suggestion} en la segunda expresión")
+        return
+    
+    try:
+        # Parseo y simplificación
+        expr1 = parse_expression(expression1)
+        expr2 = parse_expression(expression2)
+        
+        # Verificación de equivalencia
+        if sympy.simplify_logic(expr1) == sympy.simplify_logic(expr2):
+            click.echo("Las expresiones son equivalentes.")
+        else:
+            click.echo("Las expresiones no son equivalentes.")
+    
+    except Exception as e:
+        # Manejo de errores
+        click.echo(f"Error al procesar las expresiones: {str(e)}")
+        check_common_errors(expression2)
+        check_common_errors(expression1)
 
 
 # Agregar los comandos al grupo `logic_cli`
