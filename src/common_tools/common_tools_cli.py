@@ -40,7 +40,7 @@ def lcm_command(a, b):
     click.echo(f"El MCM de {a} y {b} es {result}")
 
 
-@common_tools_cli.command(name="primes")
+@common_tools_cli.command(name="generate_primes")
 @click.argument("n", type=int)
 def primes_command(n):
     """Genera todos los números primos menores o iguales a n."""
@@ -60,7 +60,7 @@ def congruence(a, b, m):
         click.echo(f"{a} NO es congruente con {b} módulo {m}")
 
 
-@common_tools_cli.command(name="solve_congruent")
+@common_tools_cli.command(name="solve_linear_congruence")
 @click.argument("a", type=int)
 @click.argument("b", type=int)
 @click.argument("m", type=int)

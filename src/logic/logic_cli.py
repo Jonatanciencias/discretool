@@ -2,8 +2,8 @@
 # src/logic/logic_cli.py
 
 import click
-import sympy
 from sympy.parsing.sympy_parser import parse_expr
+import sympy
 
 from src.logic import (
     evaluate_expression,
@@ -12,7 +12,6 @@ from src.logic import (
 )
 from src.utils import (
     normalize_expression,
-    replace_implication,
     validate_expression,
     export_to_csv,
     export_to_md,
@@ -37,6 +36,10 @@ def logic_cli():
 )
 def evaluate(expression, assign):
     """Evalúa una expresión lógica con asignaciones dadas."""
+    
+    # Normalizar la expresión antes de cualquier operación
+    expression = normalize_expression(expression)
+
     # Validación de la expresión antes de procesarla
     valid, feedback = validate_expression(expression)
     if not valid:
@@ -45,11 +48,8 @@ def evaluate(expression, assign):
             click.echo(f" - {suggestion}")
         return
 
-    # Normalizar la expresión antes del parseo
-    expression = normalize_expression(expression)
-    expression = replace_implication(expression)
-
     try:
+        # Parsear la expresión con SymPy
         expr = parse_expr(expression)
         assignments = {var: val for var, val in assign}
         result = evaluate_expression(expr, assignments)
@@ -86,8 +86,7 @@ def table(expression, export, filename, graph):
         for suggestion in feedback:
             click.echo(f" - {suggestion}")
         return
-
-    expression = replace_implication(expression)
+    expression = normalize_expression(expression)
     expr = parse_expression(expression)
     headers, table_data = truth_table(expr)
 
