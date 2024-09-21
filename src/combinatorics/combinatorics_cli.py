@@ -2,7 +2,7 @@
 
 import click
 from src.combinatorics.combinations import combinations
-from src.combinatorics.permutations import permutations
+from src.combinatorics.permutations import permutations, circular_permutations, generalized_binomial
 from src.combinatorics.combinations_with_repetition import combinations_with_repetition
 from src.utils import validate_non_negative_integers
 
@@ -76,6 +76,28 @@ def permutations_command(n, k):
         click.echo(f"Permutaciones de {n} elementos tomados de {k} en {k}: {result}")
     except ValueError as e:
         click.echo(f"Error: {str(e)}. Asegúrate de que n >= k y ambos sean no negativos.")
+
+@combinatorics_cli.command(name="circular_permutations")
+@click.argument("n", type=int)
+def circular_permutations_command(n):
+    """Calcula permutaciones circulares de n elementos."""
+    try:
+        result = circular_permutations(n)
+        click.echo(f"Permutaciones circulares de {n} elementos: {result}")
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}. Asegúrate de que el número de elementos sea válido.")
+
+@combinatorics_cli.command(name="generalized_binomial")
+@click.argument("x", type=float)
+@click.argument("k", type=int)
+def generalized_binomial_command(x, k):
+    """Calcula el coeficiente binomial generalizado."""
+    try:
+        result = generalized_binomial(x, k)
+        click.echo(f"Coeficiente binomial generalizado de {x} sobre {k}: {result}")
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}. Asegúrate de que k sea un entero no negativo.")
+
 
 if __name__ == "__main__":
     combinatorics_cli()
