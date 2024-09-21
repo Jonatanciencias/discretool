@@ -12,6 +12,8 @@
 
 ### Lógica Proposicional
 
+[common_perations](https://github.com/Jonatanciencias/discretool/blob/43ded09c6e713d75fe100ec009cacfe6e4080a51/examples/common_operations.md)
+
 - **Evaluación de expresiones lógicas**: Evalúa expresiones con asignaciones de verdad a variables proposicionales.
 - **Generación de tablas de verdad**: Crea tablas de verdad de cualquier expresión.
 - **Simplificación**: Simplifica expresiones en formas normales disyuntivas (DNF) y conjuntivas (CNF).
@@ -20,6 +22,8 @@
 - **Deducción natural**: Aplica reglas de inferencia (Modus Ponens, Silogismo Disyuntivo) para derivar conclusiones.
 
 ### Herramientas Comunes de Matemáticas Discretas
+
+[common_tools_examples](https://github.com/Jonatanciencias/discretool/blob/ba85500c9445e6149054d4c61038a990412e5bcf/examples/common_tools_examples.md)
 
 - **Cálculo del MCD**: Calcula el máximo común divisor de dos números.
 - **Cálculo del MCM**: Calcula el mínimo común múltiplo.
@@ -66,7 +70,7 @@ pip install -r requirements.txt
 ### Ejecución de Comandos
 
 - **Operaciones comunes**:
-[Common Operations](https://github.com/Jonatanciencias/discretool/blob/43ded09c6e713d75fe100ec009cacfe6e4080a51/examples/common_operations.md)
+
 
 - **Lógica Proposicional**:
 ```bash
