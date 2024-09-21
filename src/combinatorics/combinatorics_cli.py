@@ -15,7 +15,8 @@ from src.combinatorics import(
     stirling_second,
     catalan_number,
     generate_partitions,
-    generate_lexicographic_combinations
+    generate_lexicographic_combinations,
+    heap_permutations
 )
 
 from src.utils import validate_non_negative_integers
@@ -211,6 +212,24 @@ def lexicographic_combinations_command(n, k):
         click.echo(f"Combinaciones lexicográficas de {n} elementos tomados de {k} en {k}:")
         for combination in lexicographic_combinations:
             click.echo(f"{combination}")
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}")
+
+# Comando para generar permutaciones usando el Algoritmo de Heap
+@combinatorics_cli.command(name="heap_permutations")
+@click.argument("n", type=int)
+def heap_permutations_command(n):
+    """
+    Genera todas las permutaciones de un conjunto de tamaño n utilizando el Algoritmo de Heap.
+    
+    Ejemplo de uso:
+    python -m src.cli combinatorics heap_permutations 4
+    """
+    try:
+        heap_perms = heap_permutations(n)
+        click.echo(f"Permutaciones de {n} elementos usando el Algoritmo de Heap:")
+        for perm in heap_perms:
+            click.echo(f"{perm}")
     except ValueError as e:
         click.echo(f"Error: {str(e)}")
 

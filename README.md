@@ -41,7 +41,6 @@
 
 ### Próximas Funcionalidades
 
-
 - **Grafos**: Realiza operaciones sobre grafos, como encontrar el camino más corto.
 - **Recursión**: Resuelve problemas utilizando algoritmos recursivos.
 

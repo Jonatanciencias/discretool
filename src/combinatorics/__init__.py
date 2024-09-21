@@ -10,6 +10,7 @@ from .stirling_numbers import stirling_first, stirling_second
 from .catalan_numbers import catalan_number
 from .partitions import generate_partitions
 from .lexicographic_combinations import generate_lexicographic_combinations
+from . heap_permutations import heap_permutations
 
 __all__ = [
     "permutations",
@@ -23,6 +24,7 @@ __all__ = [
     "stirling_second",
     "catalan_number",
     "generate_partitions",
-    "generate_lexicographic_combinations"
+    "generate_lexicographic_combinations",
+    "heap_permutations"
     
 ]

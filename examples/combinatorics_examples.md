@@ -80,9 +80,12 @@ python -m src.cli combinatorics multinomial 10 3 2 5
 
 8. Números de Stirling
 
+Stirling de primer tipo:
 ```bash
 python -m src.cli combinatorics stirling_first 5 3
 ```
+
+Stirling de segundo tipo:
 ```bash
 python -m src.cli combinatorics stirling_second 5 3
 ```
@@ -92,14 +95,24 @@ python -m src.cli combinatorics stirling_second 5 3
 ```bash
 python -m src.cli combinatorics catalan_number 5
 ```
+
 10. Generación de Particiones
 
+Generar particiones de 5:
 ```bash
 python -m src.cli combinatorics partitions 5
 ```
 
 11. Combinaciones Lexicográficas
 
+Generar combinaciones lexicográficas de 5 elementos tomados de 3:
 ```bash
 python -m src.cli combinatorics lexicographic_combinations 5 3
+```
+
+12. 
+
+Generar todas las permutaciones de un conjunto de 4 elementos:
+```bash
+python -m src.cli combinatorics heap_permutations 4
 ```
