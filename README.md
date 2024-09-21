@@ -145,5 +145,3 @@ DiscreTool
 Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
 
 ---
-
-Este README refleja el estado actual de tu proyecto **DiscreTool**, destacando lo ya implementado y las funcionalidades planeadas para el futuro.
