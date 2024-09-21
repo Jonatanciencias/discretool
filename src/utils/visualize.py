@@ -1,3 +1,4 @@
+""" Este módulo contiene funciones para visualizar tablas de verdad. """
 # src/utils/visualize.py
 
 import os

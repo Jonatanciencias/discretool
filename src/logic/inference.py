@@ -1,3 +1,4 @@
+""" Módulo con las reglas de inferencia lógica. """
 # src/logic/inference.py
 
 """ Módulo con las reglas de inferencia lógica. """

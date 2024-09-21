@@ -6,7 +6,6 @@ cálculos y operaciones relacionados con matemáticas discretas.
 Incluye módulos para lógica proposicional, herramientas comunes, 
 combinatoria, grafos, y utilidades adicionales.
 """
-
 # src/__init__.py
 
 # Importar módulos de lógica proposicional
@@ -38,14 +37,15 @@ from .common_tools import (
 # Importar utilidades
 from .utils import (
     print_welcome_message,
-    replace_implication,
     normalize_expression,
     validate_expression,
     export_to_csv,   # Función actualizada
     export_to_md,    # Función actualizada
     visualize_truth_table,
     check_common_errors,
+    handle_boolean_expression
 )
+
 
 # Futuras expansiones para combinatoria, grafos y recursión
 # from .combinatorics import (
@@ -88,11 +88,11 @@ __all__ = [
     "solve_diophantine",
     # Utilidades
     "print_welcome_message",
-    "replace_implication",
     "normalize_expression",
     "validate_expression",
     "export_to_csv",   # Función actualizada
     "export_to_md",    # Función actualizada
     "visualize_truth_table",
     "check_common_errors",
+    "handle_boolean_expression",
 ]
