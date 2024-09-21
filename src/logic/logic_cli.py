@@ -17,7 +17,6 @@ from src.utils import (
     visualize_truth_table,
     handle_boolean_expression,
     check_common_errors,
-    handle_sympy_error
 )
 
 
