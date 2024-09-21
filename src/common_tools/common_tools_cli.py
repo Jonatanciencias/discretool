@@ -23,7 +23,7 @@ def common_tools_cli(ctx):
         )
 
 
-@common_tools_cli.command(name="gcd_command")
+@common_tools_cli.command(name="gcd")
 @click.argument("a", type=int)
 @click.argument("b", type=int)
 def gcd_command(a, b):
@@ -32,7 +32,7 @@ def gcd_command(a, b):
     click.echo(f"El MCD de {a} y {b} es {result}")
 
 
-@common_tools_cli.command(name="lcm_command")
+@common_tools_cli.command(name="lcm")
 @click.argument("a", type=int)
 @click.argument("b", type=int)
 def lcm_command(a, b):
@@ -61,7 +61,7 @@ def congruence(a, b, m):
         click.echo(f"{a} NO es congruente con {b} módulo {m}")
 
 
-@common_tools_cli.command(name="solve-congruence")
+@common_tools_cli.command(name="solve_congruence")
 @click.argument("a", type=int)
 @click.argument("b", type=int)
 @click.argument("m", type=int)
@@ -71,7 +71,7 @@ def solve_congruence(a, b, m):
     click.echo(f"Soluciones de {a}x ≡ {b} (mod {m}): {solutions}")
 
 
-@common_tools_cli.command(name="solve-diophantine")
+@common_tools_cli.command(name="solve_diophantine")
 @click.argument("a", type=int)
 @click.argument("b", type=int)
 @click.argument("c", type=int)
