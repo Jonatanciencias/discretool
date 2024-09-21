@@ -10,6 +10,7 @@ from src.common_tools import (
     lcm,
     division_algorithm,
     generate_primes,
+    sieve_of_eratosthenes,
     factorize,
     mod_exp,
     mod_inverse,
@@ -25,7 +26,6 @@ def common_tools_cli(ctx):
         click.echo(
             "Herramientas comunes disponibles: gcd, lcm, primes, congruence, solve-congruence, solve-diophantine."
         )
-
 
 @common_tools_cli.command(name="gcd")
 @click.argument("a", type=int)
@@ -45,12 +45,25 @@ def lcm_command(a, b):
     click.echo(f"El MCM de {a} y {b} es {result}")
 
 
-@common_tools_cli.command(name="generate_primes")
-@click.argument("n", type=int)
-def primes_command(n):
-    """Genera todos los números primos menores o iguales a n."""
-    prime_numbers = generate_primes(n)
-    click.echo(f"Números primos menores o iguales a {n}: {prime_numbers}")
+# Comando para generar todos los primos menores o iguales a n usando el método básico
+@common_tools_cli.command(name="primes")
+@click.argument('n', type=int)
+def primes(n):
+    """
+    Genera todos los números primos menores o iguales a n.
+    """
+    primes_list = generate_primes(n)
+    click.echo(f"Números primos menores o iguales a {n}: {primes_list}")
+
+# Comando para generar todos los primos usando la Criba de Eratóstenes
+@common_tools_cli.command(name="sieve_primes")
+@click.argument('limit', type=int)
+def sieve_primes(limit):
+    """
+    Genera todos los primos menores o iguales a 'limit' usando la Criba de Eratóstenes.
+    """
+    primes_list = sieve_of_eratosthenes(limit)
+    click.echo(f"Números primos hasta {limit} utilizando la Criba de Eratóstenes: {primes_list}")
 
 
 @common_tools_cli.command(name="is_congruent")
@@ -84,7 +97,7 @@ def solve_diophantine_command(a, b, c):
     result = solve_diophantine(a, b, c)
     click.echo(f"Solución para la ecuación {a}x + {b}y = {c}: {result}")
 
-@click.command()
+@common_tools_cli.command(name="prime_factorization")
 @click.argument('number', type=int)
 def prime_factorization(number):
     """Descompone un número en sus factores primos."""
@@ -92,7 +105,7 @@ def prime_factorization(number):
     click.echo(f"Factorización prima de {number}: {factors}")
 
 
-@click.command()
+@common_tools_cli.command(name="mod_exp")
 @click.argument('base', type=int)
 @click.argument('exp', type=int)
 @click.argument('mod', type=int)
@@ -101,13 +114,14 @@ def mod_exp_cli(base, exp, mod):
     result = mod_exp(base, exp, mod)
     click.echo(f"Resultado: {result}")
 
-@click.command()
+@common_tools_cli.command(name="extended_gcd")
 @click.argument('a', type=int)
 @click.argument('b', type=int)
 def extended_gcd_cli(a, b):
     """Calcula el MCD usando el Algoritmo Extendido de Euclides."""
     g, x, y = extended_gcd(a, b)
     click.echo(f"MCD: {g}, Coeficientes de Bézout: {x}, {y}")
+
 
 if __name__ == "__main__":
     common_tools_cli()

@@ -15,7 +15,9 @@ from .gcd_lcm import (
 )
 
 from .prime_tools import (
+    is_prime,
     generate_primes,
+    sieve_of_eratosthenes
 )
 
 from .prime_factorization import (
@@ -34,7 +36,9 @@ __all__ = [
     "gcd",
     "lcm",
     "division_algorithm",
+    "is_prime",
     "generate_primes",
+    "sieve_of_eratosthenes",
     "factorize",
     "mod_exp",
     "mod_inverse",

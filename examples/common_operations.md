@@ -37,9 +37,10 @@ python -m src.cli common_tools solve_linear_congruence 17 9 20
 5. Generación de Primos
 
 ```bash
-python -m src.cli common_tools generate_primes 10
-python -m src.cli common_tools generate_primes 50
-python -m src.cli common_tools generate_primes 100
+python -m src.cli common_tools primes 50
+python -m src.cli common_tools primes 10
+python -m src.cli common_tools primes 100
+python -m src.cli common_tools sieve_primes 50
 ```
 
 6. Evaluación de Expresiones Lógicas

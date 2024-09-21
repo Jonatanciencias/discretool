@@ -37,10 +37,3 @@ def sieve_of_eratosthenes(limit):
                 sieve[i] = False
     return [num for num, prime in enumerate(sieve) if prime]
 
-# src/common_tools/common_tools_cli.py
-@click.command()
-@click.argument('limit', type=int)
-def primes_cli(limit):
-    """Genera todos los números primos hasta 'limit'."""
-    primes = sieve_of_eratosthenes(limit)
-    click.echo(f"Primos hasta {limit}: {primes}")
