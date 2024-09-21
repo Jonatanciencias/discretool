@@ -97,6 +97,8 @@ Si deseas contribuir:
 
 DiscreTool
 ├─ .gitignore
+├─ examples
+│  └─ common_operations.md
 ├─ README.md
 ├─ requirements.txt
 ├─ setup.py
@@ -129,6 +131,7 @@ DiscreTool
 │  │  ├─ recursion_cli.py
 │  │  └─ recursion_solver.py
 │  ├─ utils
+│  │  ├─ boolean_handler.py
 │  │  ├─ error_handling.py
 │  │  ├─ export_tools.py
 │  │  ├─ expression_validator.py
