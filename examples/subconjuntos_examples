@@ -1,0 +1,6 @@
+
+1. Subconjuntos de un conjunto de n elementos
+```bash
+python -m src.cli combinatorics subsets 3
+python -m src.cli combinatorics subsets 0
+```

@@ -1,9 +1,16 @@
 # src/combinatorics/combinatorics_cli.py
 
 import click
-from src.combinatorics.combinations import combinations
-from src.combinatorics.permutations import permutations, circular_permutations, generalized_binomial
-from src.combinatorics.combinations_with_repetition import combinations_with_repetition
+
+from src.combinatorics import(
+    combinations,
+    permutations,
+    circular_permutations,
+    generalized_binomial,
+    combinations_with_repetition,
+    generate_subsets
+)
+
 from src.utils import validate_non_negative_integers
 
 @click.group()
@@ -98,6 +105,22 @@ def generalized_binomial_command(x, k):
     except ValueError as e:
         click.echo(f"Error: {str(e)}. Asegúrate de que k sea un entero no negativo.")
 
+@combinatorics_cli.command(name="subsets")
+@click.argument("n", type=int)
+def subsets_command(n):
+    """
+    Genera todos los subconjuntos de un conjunto de tamaño n.
+    
+    Ejemplo de uso:
+    python -m src.cli combinatorics subsets 3
+    """
+    try:
+        subsets = generate_subsets(n)
+        click.echo(f"Subconjuntos de un conjunto de tamaño {n}:")
+        for subset in subsets:
+            click.echo(f"{subset}")
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}")
 
 if __name__ == "__main__":
     combinatorics_cli()

@@ -6,7 +6,6 @@ from sympy.parsing.sympy_parser import parse_expr
 import sympy
 
 from src.logic import (
-    evaluate_expression,
     truth_table,
     parse_expression,
 )
@@ -151,9 +150,9 @@ def classify(expression):
 
     simplified_expr = sympy.simplify_logic(expr)
     
-    if simplified_expr == True:
+    if simplified_expr:
         result = "tautología"
-    elif simplified_expr == False:
+    elif not simplified_expr:
         result = "contradicción"
     else:
         result = "contingencia"

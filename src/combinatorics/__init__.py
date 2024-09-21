@@ -4,12 +4,14 @@
 from .permutations import permutations, circular_permutations, generalized_binomial
 from .combinations import combinations
 from .combinations_with_repetition import combinations_with_repetition
+from .subsets import generate_subsets
 
 __all__ = [
     "permutations",
     "combinations",
     "combinations_with_repetition",
     "circular_permutations",
-    "generalized_binomial"
+    "generalized_binomial",
+    "generate_subsets"
     
 ]
