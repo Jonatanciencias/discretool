@@ -12,7 +12,7 @@
 
 ### Lógica Proposicional
 
-[common_perations](https://github.com/Jonatanciencias/discretool/blob/43ded09c6e713d75fe100ec009cacfe6e4080a51/examples/common_operations.md)
+[logic_examples]()
 
 - **Evaluación de expresiones lógicas**: Evalúa expresiones con asignaciones de verdad a variables proposicionales.
 - **Generación de tablas de verdad**: Crea tablas de verdad de cualquier expresión.
@@ -23,7 +23,7 @@
 
 ### Herramientas Comunes de Matemáticas Discretas
 
-[common_tools_examples](https://github.com/Jonatanciencias/discretool/blob/ba85500c9445e6149054d4c61038a990412e5bcf/examples/common_tools_examples.md)
+[common_tools_examples]()
 
 - **Cálculo del MCD**: Calcula el máximo común divisor de dos números.
 - **Cálculo del MCM**: Calcula el mínimo común múltiplo.
@@ -33,10 +33,15 @@
 - **Aritmética modular**: Realiza operaciones de aritmética modular.
 - **Factorización prima**: Descompone un número en sus factores primos.
 
+### Combinatoria
+
+[combinatorics_examples]()
+
+- Calcula combinaciones y permutaciones.
 
 ### Próximas Funcionalidades
 
-- **Combinatoria**: Calcula combinaciones y permutaciones.
+
 - **Grafos**: Realiza operaciones sobre grafos, como encontrar el camino más corto.
 - **Recursión**: Resuelve problemas utilizando algoritmos recursivos.
 
