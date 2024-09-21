@@ -6,6 +6,9 @@ from .combinations import combinations
 from .combinations_with_repetition import combinations_with_repetition
 from .subsets import generate_subsets
 from .multinomial import multinomial
+from .stirling_numbers import stirling_first, stirling_second
+from .catalan_numbers import catalan_number
+from .partitions import generate_partitions
 
 __all__ = [
     "permutations",
@@ -14,6 +17,10 @@ __all__ = [
     "circular_permutations",
     "generalized_binomial",
     "generate_subsets",
-    "multinomial"
+    "multinomial",
+    "stirling_first",
+    "stirling_second",
+    "catalan_number",
+    "generate_partitions"
     
 ]

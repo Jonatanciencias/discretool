@@ -78,4 +78,22 @@ Prueba con 10 objetos distribuidos en grupos de 3, 2 y 5:
 python -m src.cli combinatorics multinomial 10 3 2 5
 ```
 
+8. Números de Stirling
 
+```bash
+python -m src.cli combinatorics stirling_first 5 3
+```
+```bash
+python -m src.cli combinatorics stirling_second 5 3
+```
+
+9. Números de Catalan
+
+```bash
+python -m src.cli combinatorics catalan_number 5
+```
+10. Generación de Particiones
+
+```bash
+python -m src.cli combinatorics partitions 5
+```

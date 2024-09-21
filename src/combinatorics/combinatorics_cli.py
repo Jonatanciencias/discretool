@@ -1,3 +1,4 @@
+""" Comandos de la línea de comandos para operaciones de combinatoria. """
 # src/combinatorics/combinatorics_cli.py
 
 import click
@@ -9,7 +10,11 @@ from src.combinatorics import(
     generalized_binomial,
     combinations_with_repetition,
     generate_subsets,
-    multinomial
+    multinomial,
+    stirling_first,
+    stirling_second,
+    catalan_number,
+    generate_partitions
 )
 
 from src.utils import validate_non_negative_integers
@@ -137,6 +142,59 @@ def multinomial_command(n, groups):
     try:
         result = multinomial(n, *groups)
         click.echo(f"Coeficiente multinomial para n={n} y grupos {groups}: {result}")
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}")
+
+# Comando para Números de Stirling de Primer Tipo
+@combinatorics_cli.command(name="stirling_first")
+@click.argument("n", type=int)
+@click.argument("k", type=int)
+def stirling_first_command(n, k):
+    """Calcula los números de Stirling de primer tipo."""
+    try:
+        result = stirling_first(n, k)
+        click.echo(f"Números de Stirling de primer tipo para n={n}, k={k}: {result}")
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}")
+
+# Comando para Números de Stirling de Segundo Tipo
+@combinatorics_cli.command(name="stirling_second")
+@click.argument("n", type=int)
+@click.argument("k", type=int)
+def stirling_second_command(n, k):
+    """Calcula los números de Stirling de segundo tipo."""
+    try:
+        result = stirling_second(n, k)
+        click.echo(f"Números de Stirling de segundo tipo para n={n}, k={k}: {result}")
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}")
+
+# Comando para Números de Catalan
+@combinatorics_cli.command(name="catalan_number")
+@click.argument("n", type=int)
+def catalan_number_command(n):
+    """Calcula los números de Catalan."""
+    try:
+        result = catalan_number(n)
+        click.echo(f"Número de Catalan para n={n}: {result}")
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}")
+
+@click.group()
+def combinatorics_cli():
+    """Operaciones de Combinatoria."""
+    pass
+
+# Comando para generar particiones de un número entero
+@combinatorics_cli.command(name="partitions")
+@click.argument("n", type=int)
+def partitions_command(n):
+    """Genera todas las particiones de un número entero."""
+    try:
+        partitions = generate_partitions(n)
+        click.echo(f"Particiones de {n}:")
+        for partition in partitions:
+            click.echo(f"{partition}")
     except ValueError as e:
         click.echo(f"Error: {str(e)}")
 
