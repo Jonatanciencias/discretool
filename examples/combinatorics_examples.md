@@ -60,3 +60,22 @@ python -m src.cli combinatorics circular_permutations 5
 python -m src.cli combinatorics generalized_binomial 2.5 3
 ```
 
+6. Subconjuntos de un conjunto de n elementos
+
+```bash
+python -m src.cli combinatorics subsets 3
+```
+
+```bash
+python -m src.cli combinatorics subsets 0
+```
+
+7. Coeficiente Multinomial
+
+Prueba con 10 objetos distribuidos en grupos de 3, 2 y 5:
+
+```bash
+python -m src.cli combinatorics multinomial 10 3 2 5
+```
+
+

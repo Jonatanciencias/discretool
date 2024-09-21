@@ -5,6 +5,7 @@ from .permutations import permutations, circular_permutations, generalized_binom
 from .combinations import combinations
 from .combinations_with_repetition import combinations_with_repetition
 from .subsets import generate_subsets
+from .multinomial import multinomial
 
 __all__ = [
     "permutations",
@@ -12,6 +13,7 @@ __all__ = [
     "combinations_with_repetition",
     "circular_permutations",
     "generalized_binomial",
-    "generate_subsets"
+    "generate_subsets",
+    "multinomial"
     
 ]

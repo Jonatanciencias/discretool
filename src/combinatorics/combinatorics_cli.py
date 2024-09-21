@@ -8,10 +8,12 @@ from src.combinatorics import(
     circular_permutations,
     generalized_binomial,
     combinations_with_repetition,
-    generate_subsets
+    generate_subsets,
+    multinomial
 )
 
 from src.utils import validate_non_negative_integers
+
 
 @click.group()
 def combinatorics_cli():
@@ -119,6 +121,22 @@ def subsets_command(n):
         click.echo(f"Subconjuntos de un conjunto de tamaño {n}:")
         for subset in subsets:
             click.echo(f"{subset}")
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}")
+
+@combinatorics_cli.command(name="multinomial")
+@click.argument("n", type=int)
+@click.argument("groups", nargs=-1, type=int)
+def multinomial_command(n, groups):
+    """
+    Calcula el coeficiente multinomial.
+    
+    Ejemplo de uso:
+    python -m src.cli combinatorics multinomial 10 3 2 5
+    """
+    try:
+        result = multinomial(n, *groups)
+        click.echo(f"Coeficiente multinomial para n={n} y grupos {groups}: {result}")
     except ValueError as e:
         click.echo(f"Error: {str(e)}")
 
