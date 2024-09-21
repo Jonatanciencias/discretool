@@ -12,6 +12,7 @@ from src.logic import (
 from src.utils import (
     normalize_expression,
     validate_expression,
+    check_common_errors,
     export_to_csv,
     export_to_md,
     visualize_truth_table,
@@ -144,20 +145,56 @@ def simplify(expression, form):
 @click.command()
 @click.argument("expression")
 def classify(expression):
-    """Clasifica una expresión lógica como tautología, contradicción o contingencia."""
-    expression = normalize_expression(expression)
-    expr = parse_expression(expression)
+    """
+    Clasifica una expresión lógica como tautología, contradicción o contingencia.
+    """
 
-    simplified_expr = sympy.simplify_logic(expr)
+    # Fase 1: Validar la expresión antes de modificarla
+    valid, feedback = validate_expression(expression)
+    if not valid:
+        click.echo("Errores iniciales encontrados en la expresión:")
+        for suggestion in feedback:
+            click.echo(f" - {suggestion}")
+        return
     
-    if simplified_expr:
-        result = "tautología"
-    elif not simplified_expr:
-        result = "contradicción"
-    else:
-        result = "contingencia"
+    # Fase 2: Normalizar la expresión
+    normalized_expression = normalize_expression(expression)
+    click.echo(f"Expresión normalizada: {normalized_expression}")
+
+    # Fase 3: Validar nuevamente después de la normalización
+    valid, feedback = validate_expression(normalized_expression)
+    if not valid:
+        click.echo("Errores encontrados después de la normalización:")
+        for suggestion in feedback:
+            click.echo(f" - {suggestion}")
+        return
+
+    try:
+        # Fase 4: Intentar parsear la expresión con SymPy
+        expr = parse_expression(normalized_expression)
+        simplified_expr = sympy.simplify_logic(expr)
+
+        # Clasificar según el resultado simplificado
+        if simplified_expr.is_True:
+            result = "tautología"
+        elif simplified_expr.is_False:
+            result = "contradicción"
+        else:
+            result = "contingencia"
+        
+        click.echo(f"La expresión es una {result}.")
     
-    click.echo(f"La expresión es una {result}.")
+    except Exception as e:
+        # Manejar errores y hacer un último intento de corrección
+        click.echo(f"Error inesperado: {str(e)}")
+        valid, feedback = check_common_errors(normalized_expression)
+        if not valid:
+            click.echo("Errores detectados durante el manejo de errores:")
+            for suggestion in feedback:
+                click.echo(f" - {suggestion}")
+        else:
+            click.echo("Error no recuperable.")
+
 
 @click.command()
 @click.argument("expression1")

@@ -106,27 +106,31 @@ Si deseas contribuir:
 
 ## Estructura
 
-
-
-## Licencia
-
-Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
-
----
-```
 DiscreTool
 ├─ .gitignore
 ├─ examples
-│  ├─ common_operations.md
-│  └─ common_tools_examples.md
+│  ├─ combinatorics_examples.md
+│  ├─ common_tools_examples.md
+│  ├─ logic_examples.md
+│  └─ Resolución_de_problemas .md
 ├─ README.md
 ├─ requirements.txt
 ├─ setup.py
 ├─ src
 │  ├─ cli.py
 │  ├─ combinatorics
+│  │  ├─ catalan_numbers.py
+│  │  ├─ combinations.py
+│  │  ├─ combinations_with_repetition.py
 │  │  ├─ combinatorics_cli.py
-│  │  └─ combinatorics_solver.py
+│  │  ├─ heap_permutations.py
+│  │  ├─ lexicographic_combinations.py
+│  │  ├─ multinomial.py
+│  │  ├─ partitions.py
+│  │  ├─ permutations.py
+│  │  ├─ stirling_numbers.py
+│  │  ├─ subsets.py
+│  │  └─ __init__.py
 │  ├─ common_tools
 │  │  ├─ common_tools_cli.py
 │  │  ├─ congruences.py
@@ -159,6 +163,7 @@ DiscreTool
 │  │  ├─ expression_validator.py
 │  │  ├─ helper.py
 │  │  ├─ normalize_expression.py
+│  │  ├─ validate_non_negative_integers.py
 │  │  ├─ visualize.py
 │  │  └─ __init__.py
 │  └─ __init__.py
@@ -168,4 +173,8 @@ DiscreTool
    ├─ test_common_tools.py
    └─ test_logic_solver.py
 
-```
+## Licencia
+
+Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
+
+---
