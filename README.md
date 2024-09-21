@@ -12,6 +12,8 @@
 
 ### Lógica Proposicional
 
+[logic_examples]()
+
 - **Evaluación de expresiones lógicas**: Evalúa expresiones con asignaciones de verdad a variables proposicionales.
 - **Generación de tablas de verdad**: Crea tablas de verdad de cualquier expresión.
 - **Simplificación**: Simplifica expresiones en formas normales disyuntivas (DNF) y conjuntivas (CNF).
@@ -21,15 +23,24 @@
 
 ### Herramientas Comunes de Matemáticas Discretas
 
+[common_tools_examples]()
+
 - **Cálculo del MCD**: Calcula el máximo común divisor de dos números.
 - **Cálculo del MCM**: Calcula el mínimo común múltiplo.
 - **Generación de números primos**: Genera números primos hasta un valor especificado.
 - **Congruencias**: Verifica si dos números son congruentes en un módulo dado.
-- **Ecuaciones diofánticas**: Resuelve ecuaciones del tipo ax+by=cax + by = cax+by=c.
+- **Ecuaciones diofánticas**: Resuelve ecuaciones del tipo ax + by = c.
+- **Aritmética modular**: Realiza operaciones de aritmética modular.
+- **Factorización prima**: Descompone un número en sus factores primos.
+
+### Combinatoria
+
+[combinatorics_examples]()
+
+- Calcula combinaciones y permutaciones.
 
 ### Próximas Funcionalidades
 
-- **Combinatoria**: Calcula combinaciones y permutaciones.
 - **Grafos**: Realiza operaciones sobre grafos, como encontrar el camino más corto.
 - **Recursión**: Resuelve problemas utilizando algoritmos recursivos.
 
@@ -63,7 +74,7 @@ pip install -r requirements.txt
 ### Ejecución de Comandos
 
 - **Operaciones comunes**:
-[Common Operations](https://github.com/Jonatanciencias/discretool/blob/43ded09c6e713d75fe100ec009cacfe6e4080a51/examples/common_operations.md)
+
 
 - **Lógica Proposicional**:
 ```bash
@@ -98,19 +109,34 @@ Si deseas contribuir:
 DiscreTool
 ├─ .gitignore
 ├─ examples
-│  └─ common_operations.md
+│  ├─ combinatorics_examples.md
+│  ├─ common_tools_examples.md
+│  ├─ logic_examples.md
+│  └─ Resolución_de_problemas .md
 ├─ README.md
 ├─ requirements.txt
 ├─ setup.py
 ├─ src
 │  ├─ cli.py
 │  ├─ combinatorics
+│  │  ├─ catalan_numbers.py
+│  │  ├─ combinations.py
+│  │  ├─ combinations_with_repetition.py
 │  │  ├─ combinatorics_cli.py
-│  │  └─ combinatorics_solver.py
+│  │  ├─ heap_permutations.py
+│  │  ├─ lexicographic_combinations.py
+│  │  ├─ multinomial.py
+│  │  ├─ partitions.py
+│  │  ├─ permutations.py
+│  │  ├─ stirling_numbers.py
+│  │  ├─ subsets.py
+│  │  └─ __init__.py
 │  ├─ common_tools
 │  │  ├─ common_tools_cli.py
 │  │  ├─ congruences.py
 │  │  ├─ gcd_lcm.py
+│  │  ├─ modular_arithmetic.py
+│  │  ├─ prime_factorization.py
 │  │  ├─ prime_tools.py
 │  │  └─ __init__.py
 │  ├─ graphs
@@ -137,6 +163,7 @@ DiscreTool
 │  │  ├─ expression_validator.py
 │  │  ├─ helper.py
 │  │  ├─ normalize_expression.py
+│  │  ├─ validate_non_negative_integers.py
 │  │  ├─ visualize.py
 │  │  └─ __init__.py
 │  └─ __init__.py

@@ -120,8 +120,18 @@ def mod_exp_cli(base, exp, mod):
 def extended_gcd_cli(a, b):
     """Calcula el MCD usando el Algoritmo Extendido de Euclides."""
     g, x, y = extended_gcd(a, b)
-    click.echo(f"MCD: {g}, Coeficientes de Bézout: {x}, {y}")
+    click.echo(f"MCD: {g}, Coeficientes de Bézout: x = {x}, y = {y}")
 
+@common_tools_cli.command(name="division_alg")
+@click.argument("a", type=int)
+@click.argument("b", type=int)
+def division_command(a, b):
+    """Realiza la división y devuelve el cociente y el residuo."""
+    try:
+        cociente, residuo = division_algorithm(a, b)
+        click.echo(f"División de {a} entre {b}: Cociente = {cociente}, Residuo = {residuo}")
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}")
 
 if __name__ == "__main__":
     common_tools_cli()

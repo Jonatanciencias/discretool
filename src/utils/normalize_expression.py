@@ -1,6 +1,3 @@
-"""" Normaliza la notación de la expresión para que SymPy pueda entenderla. """
-# src/utils/normalize_expression.py
-
 def normalize_expression(expression):
     """
     Normaliza la notación de la expresión para que SymPy pueda entenderla.
@@ -52,3 +49,4 @@ def normalize_expression(expression):
         print(f"Expresión normalizada correctamente: {expression}")
 
     return expression
+

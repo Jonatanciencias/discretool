@@ -1,6 +1,3 @@
-""" Módulo que se encarga de validar la expresión lógica ingresada por el usuario. """
-# src/utils/expression_validator.py
-
 from sympy import sympify
 from sympy.core.sympify import SympifyError
 from .error_handling import check_common_errors
