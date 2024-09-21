@@ -26,3 +26,21 @@ def generate_primes(n):
         if is_prime(i):
             primes.append(i)
     return primes
+
+def sieve_of_eratosthenes(limit):
+    """Genera todos los primos menores o iguales a 'limit' usando la Criba de Eratóstenes."""
+    sieve = [True] * (limit + 1)
+    sieve[0] = sieve[1] = False
+    for start in range(2, int(limit**0.5) + 1):
+        if sieve[start]:
+            for i in range(start * start, limit + 1, start):
+                sieve[i] = False
+    return [num for num, prime in enumerate(sieve) if prime]
+
+# src/common_tools/common_tools_cli.py
+@click.command()
+@click.argument('limit', type=int)
+def primes_cli(limit):
+    """Genera todos los números primos hasta 'limit'."""
+    primes = sieve_of_eratosthenes(limit)
+    click.echo(f"Primos hasta {limit}: {primes}")

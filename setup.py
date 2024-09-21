@@ -4,12 +4,18 @@ from setuptools import setup, find_packages
 
 setup(
     name='DiscreTool',
-    version='0.1',
+    version='2.3',
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     install_requires=[
         'Click',
         'SymPy',
+        'pysat',
+        'csv',
+        'matplotlib',
+        'pandas',
+        'numpy',
+        'markdown',
     ],
     entry_points={
         'console_scripts': [

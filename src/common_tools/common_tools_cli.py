@@ -3,12 +3,17 @@
 
 import click
 from src.common_tools import (
-    gcd,
-    lcm,
-    generate_primes,
     is_congruent,
     solve_linear_congruence,
     solve_diophantine,
+    gcd,
+    lcm,
+    division_algorithm,
+    generate_primes,
+    factorize,
+    mod_exp,
+    mod_inverse,
+    extended_gcd
 )
 
 
@@ -79,7 +84,30 @@ def solve_diophantine_command(a, b, c):
     result = solve_diophantine(a, b, c)
     click.echo(f"Solución para la ecuación {a}x + {b}y = {c}: {result}")
 
+@click.command()
+@click.argument('number', type=int)
+def prime_factorization(number):
+    """Descompone un número en sus factores primos."""
+    factors = factorize(number)
+    click.echo(f"Factorización prima de {number}: {factors}")
 
+
+@click.command()
+@click.argument('base', type=int)
+@click.argument('exp', type=int)
+@click.argument('mod', type=int)
+def mod_exp_cli(base, exp, mod):
+    """Calcula exponenciación modular."""
+    result = mod_exp(base, exp, mod)
+    click.echo(f"Resultado: {result}")
+
+@click.command()
+@click.argument('a', type=int)
+@click.argument('b', type=int)
+def extended_gcd_cli(a, b):
+    """Calcula el MCD usando el Algoritmo Extendido de Euclides."""
+    g, x, y = extended_gcd(a, b)
+    click.echo(f"MCD: {g}, Coeficientes de Bézout: {x}, {y}")
 
 if __name__ == "__main__":
     common_tools_cli()

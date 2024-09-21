@@ -10,11 +10,21 @@ from .congruences import (
 from .gcd_lcm import (
     gcd,
     lcm,
-    division_algorithm
+    division_algorithm,
+    extended_gcd
 )
 
 from .prime_tools import (
     generate_primes,
+)
+
+from .prime_factorization import (
+    factorize,
+)
+
+from .modular_arithmetic import (
+    mod_exp,
+    mod_inverse
 )
 
 __all__ = [
@@ -24,7 +34,11 @@ __all__ = [
     "gcd",
     "lcm",
     "division_algorithm",
-    "generate_primes"
+    "generate_primes",
+    "factorize",
+    "mod_exp",
+    "mod_inverse",
+    "extended_gcd"
 ]
 
 config = {
