@@ -41,8 +41,8 @@ from .utils import (
     replace_implication,
     normalize_expression,
     validate_expression,
-    export_truth_table_csv,
-    export_truth_table_md,
+    export_to_csv,   # Función actualizada
+    export_to_md,    # Función actualizada
     visualize_truth_table,
     check_common_errors,
 )
@@ -91,8 +91,8 @@ __all__ = [
     "replace_implication",
     "normalize_expression",
     "validate_expression",
-    "export_truth_table_csv",
-    "export_truth_table_md",
+    "export_to_csv",   # Función actualizada
+    "export_to_md",    # Función actualizada
     "visualize_truth_table",
     "check_common_errors",
 ]

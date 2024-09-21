@@ -14,8 +14,8 @@ from src.utils import (
     normalize_expression,
     replace_implication,
     validate_expression,
-    export_truth_table_csv,
-    export_truth_table_md,
+    export_to_csv,
+    export_to_md,
     visualize_truth_table,
 )
 
@@ -102,10 +102,10 @@ def table(expression, export, filename, graph):
 
     # Exportar a CSV o Markdown
     if export == "csv":
-        export_truth_table_csv(headers, table_data, f"{filename}.csv")
+        export_to_csv(headers, table_data, f"{filename}.csv")
         click.echo(f"Tabla de verdad exportada como {filename}.csv en la carpeta 'exports'.")
     elif export == "md":
-        export_truth_table_md(headers, table_data, f"{filename}.md")
+        export_to_md(headers, table_data, f"{filename}.md")
         click.echo(f"Tabla de verdad exportada como {filename}.md en la carpeta 'exports'.")
 
     # Visualización gráfica (opcional)
