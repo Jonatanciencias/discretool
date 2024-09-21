@@ -2,7 +2,7 @@
 # src/combinatorics/combinations.py
 
 from math import factorial
-from src.utils.error_handling import validate_non_negative_integers
+from src.utils import validate_non_negative_integers
 
 def combinations(n, k):
     """Calcula el número de combinaciones (nCk)."""

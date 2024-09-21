@@ -42,3 +42,9 @@ python -m src.cli combinatorics permutations 3 3
 Permutaciones de 5 elementos tomados de 1 en 1
 python -m src.cli combinatorics permutations 5 1
 ```
+
+3. Combinaciones con repeticiones
+
+```bash
+python -m src.cli combinatorics combinations_with_repetition 5 3
+```

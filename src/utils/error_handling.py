@@ -61,8 +61,3 @@ def validate_expression(expression):
     # Agregar más validaciones si es necesario, como reglas de dominio específicas
     return True, feedback
 
-def validate_non_negative_integers(*args):
-    """Valida que todos los argumentos sean enteros no negativos."""
-    for arg in args:
-        if not isinstance(arg, int) or arg < 0:
-            raise ValueError(f"{arg} debe ser un entero no negativo.")

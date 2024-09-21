@@ -3,8 +3,11 @@
 
 from .permutations import permutations
 from .combinations import combinations
+from .combinations_with_repetition import combinations_with_repetition
 
 __all__ = [
-    'permutations',
-    'combinations'
+    "permutations",
+    "combinations",
+    "combinations_with_repetition"
+    
 ]
