@@ -97,3 +97,9 @@ python -m src.cli combinatorics catalan_number 5
 ```bash
 python -m src.cli combinatorics partitions 5
 ```
+
+11. Combinaciones Lexicográficas
+
+```bash
+python -m src.cli combinatorics lexicographic_combinations 5 3
+```

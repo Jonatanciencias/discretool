@@ -14,7 +14,8 @@ from src.combinatorics import(
     stirling_first,
     stirling_second,
     catalan_number,
-    generate_partitions
+    generate_partitions,
+    generate_lexicographic_combinations
 )
 
 from src.utils import validate_non_negative_integers
@@ -180,10 +181,6 @@ def catalan_number_command(n):
     except ValueError as e:
         click.echo(f"Error: {str(e)}")
 
-@click.group()
-def combinatorics_cli():
-    """Operaciones de Combinatoria."""
-    pass
 
 # Comando para generar particiones de un número entero
 @combinatorics_cli.command(name="partitions")
@@ -197,6 +194,27 @@ def partitions_command(n):
             click.echo(f"{partition}")
     except ValueError as e:
         click.echo(f"Error: {str(e)}")
+
+# Comando para generar combinaciones lexicográficas
+@combinatorics_cli.command(name="lexicographic_combinations")
+@click.argument("n", type=int)
+@click.argument("k", type=int)
+def lexicographic_combinations_command(n, k):
+    """
+    Genera combinaciones de k elementos de un conjunto de tamaño n en orden lexicográfico.
+    
+    Ejemplo de uso:
+    python -m src.cli combinatorics lexicographic_combinations 5 3
+    """
+    try:
+        lexicographic_combinations = generate_lexicographic_combinations(n, k)
+        click.echo(f"Combinaciones lexicográficas de {n} elementos tomados de {k} en {k}:")
+        for combination in lexicographic_combinations:
+            click.echo(f"{combination}")
+    except ValueError as e:
+        click.echo(f"Error: {str(e)}")
+
+
 
 if __name__ == "__main__":
     combinatorics_cli()
