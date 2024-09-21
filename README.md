@@ -70,3 +70,65 @@ Si quieres contribuir al desarrollo de **DiscreTool**, sigue estos pasos:
 ## Licencia
 
 Este proyecto está licenciado bajo la licencia MIT - mira el archivo LICENSE para más detalles.
+
+
+## Estructura
+
+
+```
+
+```
+DiscreTool
+├─ .git
+├─ .gitignore
+├─ exports
+├─ README.md
+├─ requirements.txt
+├─ setup.py
+├─ src
+│  ├─ cli.py
+│  ├─ combinatorics
+│  │  ├─ combinatorics_cli.py
+│  │  └─ combinatorics_solver.py
+│  ├─ common_tools
+│  │  ├─ common_tools_cli.py
+│  │  ├─ congruences.py
+│  │  ├─ gcd_lcm.py
+│  │  ├─ prime_tools.py
+│  │  └─ __init__.py
+│  ├─ exports
+│  │  └─ truth_table_test.csv_20240920.csv
+│  ├─ graphs
+│  │  ├─ graphs_cli.py
+│  │  └─ graph_algorithms.py
+│  ├─ logic
+│  │  ├─ complexity_analysis.py
+│  │  ├─ derivation.py
+│  │  ├─ equivalence_solver.py
+│  │  ├─ inference.py
+│  │  ├─ inference_rules.py
+│  │  ├─ logic_cli.py
+│  │  ├─ logic_solver.py
+│  │  ├─ sat_solver.py
+│  │  ├─ truth_table.py
+│  │  └─ __init__.py
+│  ├─ recursion
+│  │  ├─ recursion_cli.py
+│  │  └─ recursion_solver.py
+│  ├─ utils
+│  │  ├─ error_handling.py
+│  │  ├─ export_tools.py
+│  │  ├─ expression_validator.py
+│  │  ├─ helper.py
+│  │  ├─ normalize_expression.py
+│  │  ├─ replace_implication.py
+│  │  ├─ visualize.py
+│  │  └─ __init__.py
+│  └─ __init__.py
+├─ tasks.json
+└─ tests
+   ├─ test_cli.py
+   ├─ test_common_tools.py
+   └─ test_logic_solver.py
+
+```

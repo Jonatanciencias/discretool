@@ -1,3 +1,6 @@
+""" Módulo de ayuda para la aplicación DiscreTools """
+# src/utils/helper.py
+
 import click
 
 # Mensaje de bienvenida retro

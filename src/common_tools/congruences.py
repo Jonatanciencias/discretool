@@ -1,3 +1,6 @@
+""" Módulo con funciones para trabajar con congruencias. """
+# src/common_tools/congruences.py
+
 def is_congruent(a, b, m):
     """
     Verifica si a es congruente con b módulo m (a ≡ b (mod m)).

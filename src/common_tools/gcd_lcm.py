@@ -1,3 +1,6 @@
+""" Módulo con funciones para calcular el máximo común divisor (GCD) y el mínimo común múltiplo (LCM). """
+# src/common_tools/gcd_lcm.py
+
 import math
 
 def gcd(a, b):

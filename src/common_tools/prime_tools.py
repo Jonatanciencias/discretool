@@ -1,3 +1,6 @@
+""" Módulo con funciones relacionadas a los números primos. """
+# src/common_tools/prime_tools.py
+
 def is_prime(n):
     """Verifica si un número es primo."""
     if n < 2:
