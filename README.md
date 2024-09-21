@@ -76,12 +76,9 @@ Este proyecto está licenciado bajo la licencia MIT - mira el archivo LICENSE pa
 
 
 ```
-
-```
 DiscreTool
 ├─ .git
 ├─ .gitignore
-├─ exports
 ├─ README.md
 ├─ requirements.txt
 ├─ setup.py
@@ -96,8 +93,6 @@ DiscreTool
 │  │  ├─ gcd_lcm.py
 │  │  ├─ prime_tools.py
 │  │  └─ __init__.py
-│  ├─ exports
-│  │  └─ truth_table_test.csv_20240920.csv
 │  ├─ graphs
 │  │  ├─ graphs_cli.py
 │  │  └─ graph_algorithms.py

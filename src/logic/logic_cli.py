@@ -113,8 +113,55 @@ def table(expression, export, filename, graph):
         visualize_truth_table(headers, table_data, filename)
         click.echo(f"Gráfico de la tabla de verdad guardado como {filename}.png en la carpeta 'exports'.")
 
+@click.command()
+@click.argument("expression")
+@click.option("--form", "-f", type=click.Choice(["cnf", "dnf"]), help="Especificar la forma normal (CNF, DNF)")
+def simplify(expression, form):
+    """Simplifica una expresión lógica en CNF o DNF."""
+    expression = normalize_expression(expression)
+    expr = parse_expression(expression)
+    
+    if form == "cnf":
+        simplified_expr = sympy.to_cnf(expr)
+    elif form == "dnf":
+        simplified_expr = sympy.to_dnf(expr)
+
+    click.echo(f"Expresión simplificada ({form}): {simplified_expr}")
+
+@click.command()
+@click.argument("expression")
+def classify(expression):
+    """Clasifica una expresión lógica como tautología, contradicción o contingencia."""
+    expression = normalize_expression(expression)
+    expr = parse_expression(expression)
+    
+    if expr.is_tautology():
+        result = "tautología"
+    elif expr.is_contradiction():
+        result = "contradicción"
+    else:
+        result = "contingencia"
+    
+    click.echo(f"La expresión es una {result}.")
+
+@click.command()
+@click.argument("expression1")
+@click.argument("expression2")
+def equivalent(expression1, expression2):
+    """Verifica si dos expresiones son equivalentes."""
+    expr1 = parse_expression(normalize_expression(expression1))
+    expr2 = parse_expression(normalize_expression(expression2))
+    
+    if sympy.simplify_logic(expr1) == sympy.simplify_logic(expr2):
+        click.echo("Las expresiones son equivalentes.")
+    else:
+        click.echo("Las expresiones no son equivalentes.")
+
+
 # Agregar los comandos al grupo `logic_cli`
 logic_cli.add_command(evaluate)
 logic_cli.add_command(table)
+logic_cli.add_command(simplify)
+logic_cli.add_command(classify)
+logic_cli.add_command(equivalent)
 
-# Puedes agregar otros comandos aquí como `simplify`, `equivalent`, etc.
